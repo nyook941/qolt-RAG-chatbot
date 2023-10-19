@@ -30,7 +30,7 @@ THE BREAST CANCER CHALLENGE - CATCHING THE SMALLEST OF TUMORS IN PATIENTS OF ALL
 AUTOMATED ORAL CANCER DETECTION
 - Uses TensorFlow Lite and TinyML
 - Image Preprocessing uses the steps: Read image, Resize image, Remove noise, Segmentation, Morphology
-
+    
 MACHINE LEARNING ALGORITHM FOR HEART ARRHYTHMIA DETECTION
 - Table of results published in IEEE EMBC 2020 conference, July 20-24, 2020:
     Metric      |   QRS Detection   |   AF Detection    |   PVC Detection   |   VT/VF Detection
