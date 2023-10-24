@@ -4,12 +4,7 @@ import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
-  const [text, setText] = useState("");
-  let ws = null; // Initialize WebSocket outside of useEffect
-
-  const handleChange = (e) => {
-    setText(e.target.value);
-  };
+  let ws = null;
 
   const sendMessage = () => {
     if (ws) {
@@ -23,9 +18,17 @@ function App() {
   };
 
   useEffect(() => {
-    ws = new Sockette(
+    let ws = new Sockette(
       "wss://ehj9s7fnwb.execute-api.us-east-2.amazonaws.com/production",
       {
+        onopen: () => {
+          console.log("WebSocket connection opened");
+          const payload = {
+            action: "postId",
+          };
+          ws.json(payload);
+          console.log("Sent:", payload);
+        },
         onmessage: (e) => {
           try {
             console.log("Received:", JSON.parse(e.data));
