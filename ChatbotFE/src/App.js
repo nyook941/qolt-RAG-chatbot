@@ -4,7 +4,7 @@ import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
-  let ws = null;
+  const [ws, setWs] = useState(null);
 
   const sendMessage = () => {
     if (ws) {
@@ -18,7 +18,7 @@ function App() {
   };
 
   useEffect(() => {
-    let ws = new Sockette(
+    const wsInstance = new Sockette(
       "wss://ehj9s7fnwb.execute-api.us-east-2.amazonaws.com/production",
       {
         onopen: () => {
@@ -26,7 +26,7 @@ function App() {
           const payload = {
             action: "postId",
           };
-          ws.json(payload);
+          wsInstance.json(payload);
           console.log("Sent:", payload);
         },
         onmessage: (e) => {
@@ -39,8 +39,10 @@ function App() {
       }
     );
 
+    setWs(wsInstance);
+
     return () => {
-      ws.close();
+      wsInstance.close();
     };
   }, []);
 
