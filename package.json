@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "aws-sdk": "^2.1480.0",
     "sockette": "^2.0.6"
   }
 }
