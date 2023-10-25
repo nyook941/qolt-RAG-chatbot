@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+.Input-field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #363b45;
+  padding: 16px;
+  border-radius: 10px;
+  width: 75%;
+  height: 52px;
+}
+
+.Input-field textarea {
+  background-color: #363b45;
+  border-width: 0px;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  flex: 1;
+  resize: none;
+  flex-direction: row;
+  line-height: 20px;
+  overflow: hidden;
+}
+
+.Input-field textarea:focus {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.Input-field textarea::placeholder {
+  color: #8592ab;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.Input-container {
+  display: flex;
+  background-color: #282c34;
+  padding: 16px;
+  justify-content: center;
+  height: auto;
+}
