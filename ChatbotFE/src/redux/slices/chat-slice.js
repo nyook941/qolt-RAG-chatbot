@@ -3,7 +3,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 const initialState = {
   requests: [],
   responses: [],
-  ws: null,
 };
 
 export const chatSlice = createSlice({
@@ -16,12 +15,9 @@ export const chatSlice = createSlice({
     addRequest: (state, action) => {
       state.requests.push(action.payload);
     },
-    setWs: (state, action) => {
-      state.ws = action.payload;
-    },
   },
 });
 
-export const { addResponse, addRequest, setWs } = chatSlice.actions;
+export const { addResponse, addRequest } = chatSlice.actions;
 
 export default chatSlice.reducer;

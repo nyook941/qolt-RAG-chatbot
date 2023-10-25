@@ -3,23 +3,10 @@ import Sockette from "sockette";
 import "./App.css";
 import AppHeader from "./components/app-header/app-header";
 import MainBody from "./components/main-body/main-body";
-import logo from "./logo.svg";
-import { useDispatch, useSelector } from "react-redux";
+import AppFooter from "./components/app-footer/app-footer";
 
 export default function App() {
   const [ws, setWs] = useState(null);
-  const [text, setText] = useState("");
-
-  const sendMessage = () => {
-    if (ws) {
-      const payload = {
-        action: "startTranscription",
-        message: "test.mp3",
-      };
-      ws.json(payload);
-      console.log("Sent:", payload);
-    }
-  };
 
   useEffect(() => {
     const wsInstance = new Sockette(
@@ -50,31 +37,11 @@ export default function App() {
     };
   }, []);
 
-  const onChange = (e) => {
-    const textArea = e.target;
-    setText(e.target.value);
-    textArea.style.height = "auto";
-    textArea.style.height = textArea.scrollHeight + "px";
-  };
-
   return (
     <div className="App">
       <AppHeader />
-      <div className="Main-body">
-        <img src={logo} className="App-logo" alt="logo" />
-        <button onClick={sendMessage}>Send Message</button>
-      </div>
-      <div className="Input-container">
-        <div className="Input-field">
-          <textarea
-            type="text"
-            placeholder="Ask anything about QoLT..."
-            value={text}
-            onChange={onChange}
-          />
-          <i className="material-icons input-icon" />
-        </div>
-      </div>
+      <MainBody ws={ws} />
+      <AppFooter />
     </div>
   );
 }

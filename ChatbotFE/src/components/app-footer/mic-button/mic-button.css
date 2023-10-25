@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+.Button {
+  background-color: transparent;
+  border-width: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.material-icons {
+  color: #8592ab;
+  font-size: 24px;
+  margin-top: 5px;
+}
