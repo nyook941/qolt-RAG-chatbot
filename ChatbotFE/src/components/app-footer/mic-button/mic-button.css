@@ -5,10 +5,26 @@
   border-width: 0;
   justify-content: center;
   align-items: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  border-radius: 10px;
+  transform: scale(1);
+}
+
+.Button:hover,
+.Button.recording {
+  background-color: orange;
+  transform: scale(1.1);
+}
+
+.Button:hover .material-icons,
+.Button.recording .material-icons {
+  color: white;
+  transform: scale(1.1);
 }
 
 .material-icons {
   color: #8592ab;
   font-size: 24px;
   margin-top: 5px;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
