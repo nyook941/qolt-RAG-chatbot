@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 .App-logo {
@@ -13,19 +16,73 @@
   }
 }
 
-.App-header {
+.Main-body {
   background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  flex: 1;
 }
 
-.App-link {
-  color: #61dafb;
+.Top-header {
+  display: flex;
+  background-color: black;
+  font-size: 26px;
+  font-weight: 700;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.Qolt-logo {
+  width: 300px;
+  height: auto;
+  position: absolute;
+  left: 16px;
+  top: 0;
+}
+
+.Input-field {
+  display: flex;
+  background-color: #363b45;
+  padding: 16px;
+  border-radius: 10px;
+  width: 75%;
+  height: auto;
+}
+
+.Input-field textarea {
+  background-color: #363b45;
+  border-width: 0px;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  flex: 1;
+  resize: none;
+}
+
+.Input-field textarea:focus {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.Input-field textarea::placeholder {
+  color: #8592ab;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.Input-container {
+  display: flex;
+  background-color: #282c34;
+  padding: 16px;
+  justify-content: center;
+  height: auto;
 }
 
 @keyframes App-logo-spin {

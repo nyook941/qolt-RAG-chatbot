@@ -1,0 +1,19 @@
+.Top-header {
+  display: flex;
+  background-color: black;
+  font-size: 26px;
+  font-weight: 700;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.Qolt-logo {
+  width: 300px;
+  height: auto;
+  position: absolute;
+  left: 16px;
+  top: 0;
+}

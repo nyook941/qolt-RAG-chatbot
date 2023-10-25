@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Sockette from "sockette";
-import logo from "./logo.svg";
 import "./App.css";
+import AppHeader from "./components/app-header/app-header";
+import MainBody from "./components/main-body/main-body";
+import logo from "./logo.svg";
+import { useDispatch, useSelector } from "react-redux";
 
-function App() {
+export default function App() {
   const [ws, setWs] = useState(null);
+  const [text, setText] = useState("");
 
   const sendMessage = () => {
     if (ws) {
@@ -46,14 +50,31 @@ function App() {
     };
   }, []);
 
+  const onChange = (e) => {
+    const textArea = e.target;
+    setText(e.target.value);
+    textArea.style.height = "auto";
+    textArea.style.height = textArea.scrollHeight + "px";
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
+      <AppHeader />
+      <div className="Main-body">
         <img src={logo} className="App-logo" alt="logo" />
         <button onClick={sendMessage}>Send Message</button>
-      </header>
+      </div>
+      <div className="Input-container">
+        <div className="Input-field">
+          <textarea
+            type="text"
+            placeholder="Ask anything about QoLT..."
+            value={text}
+            onChange={onChange}
+          />
+          <i className="material-icons input-icon" />
+        </div>
+      </div>
     </div>
   );
 }
-
-export default App;
