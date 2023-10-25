@@ -11,17 +11,21 @@ import MicRecorder from "mic-recorder-to-mp3";
 export default function MicButton() {
   const [recorder] = useState(new MicRecorder({ bitRate: 128 }));
   const [btnDisabled, setBtnDisabled] = useState(false);
+  const [audioLevel, setAudioLevel] = useState(0);
 
-  const { isRecording, isMicBlocked, audioBlobUrl } = useSelector(
-    (state) => state.chat
-  );
+  const { isRecording, isMicBlocked } = useSelector((state) => state.chat);
   const dispatch = useDispatch();
+
+  const [audioStream, setAudioStream] = useState(null);
+  const [audioContext, setAudioContext] = useState(null);
+  const [analyser, setAnalyser] = useState(null);
 
   useEffect(() => {
     navigator.mediaDevices
       .getUserMedia({ audio: true })
-      .then(() => {
+      .then((stream) => {
         console.log("Permission Granted");
+        setAudioStream(stream);
         dispatch(setIsMicBlocked(false));
       })
       .catch(() => {
@@ -29,6 +33,34 @@ export default function MicButton() {
         dispatch(setIsMicBlocked(true));
       });
   }, []);
+
+  useEffect(() => {
+    if (isRecording && !audioContext && audioStream) {
+      const context = new AudioContext();
+      setAudioContext(context);
+
+      const audioSrc = context.createMediaStreamSource(audioStream);
+      const analyserNode = context.createAnalyser();
+      audioSrc.connect(analyserNode);
+      setAnalyser(analyserNode);
+    }
+  }, [isRecording, audioContext, audioStream]);
+
+  useEffect(() => {
+    if (isRecording && analyser) {
+      const dataArray = new Uint8Array(analyser.frequencyBinCount);
+      const interval = setInterval(() => {
+        analyser.getByteFrequencyData(dataArray);
+        const level =
+          dataArray.reduce((acc, val) => acc + val, 0) / dataArray.length;
+        setAudioLevel(Math.min(20, Math.floor(level / 1.7)) + 5);
+      }, 100);
+
+      return () => clearInterval(interval);
+    } else {
+      setAudioLevel(0);
+    }
+  }, [analyser, isRecording]);
 
   const startRecording = () => {
     if (!btnDisabled) {
@@ -61,6 +93,7 @@ export default function MicButton() {
             const blobURL = URL.createObjectURL(blob);
             dispatch(setIsRecording(false));
             dispatch(setAudioBlobUrl(blobURL));
+            console.log(blobURL);
           })
           .catch((e) => console.log(e));
       }
@@ -72,6 +105,7 @@ export default function MicButton() {
       className={`Button ${isRecording ? "recording" : ""}`}
       onClick={isRecording ? stopRecording : startRecording}
       disabled={btnDisabled}
+      style={{ boxShadow: `0 0 0 ${audioLevel}px green` }}
     >
       <i className="material-icons">mic</i>
     </button>
