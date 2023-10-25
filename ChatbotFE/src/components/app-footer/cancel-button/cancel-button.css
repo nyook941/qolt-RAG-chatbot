@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+.material-icons.cancel-audio {
+  color: #8592ab;
+}
+
+.Cancel-audio-button {
+  background-color: transparent;
+  border-width: 0px;
+}
+
+.material-icons.cancel-audio:hover {
+  color: white;
+}

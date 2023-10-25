@@ -45,3 +45,10 @@
   justify-content: center;
   height: auto;
 }
+
+.confirmation {
+  flex: 1;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+}
