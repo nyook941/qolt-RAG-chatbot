@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import CancelButton from "./cancel-button/cancel-button";
 import TestButton from "./test-button/test-button";
 
-export default function AppFooter() {
+export default function AppFooter({ ws }) {
   const [text, setText] = useState("");
   const { audioBlobUrl } = useSelector((state) => state.chat);
 
@@ -32,8 +32,7 @@ export default function AppFooter() {
             onChange={onChange}
           />
         )}
-        {/* <SendButton /> */}
-        <TestButton />
+        <SendButton ws={ws} />
       </div>
     </div>
   );
