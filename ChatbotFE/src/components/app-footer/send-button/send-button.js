@@ -7,6 +7,7 @@ export default function SendButton() {
   const dispatch = useDispatch();
   const blobUrl = useSelector((state) => state.chat.audioBlobUrl);
 
+
   const sendPrompt = () => {
     fetch(blobUrl)
       .then((response) => response.blob())
@@ -22,6 +23,7 @@ export default function SendButton() {
   };
   const { audioBlobUrl } = useSelector((state) => state.chat);
 
+  
   return (
     <button
       className={audioBlobUrl !== "" ? "Send-Audio" : "Button"}

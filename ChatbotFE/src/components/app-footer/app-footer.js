@@ -4,6 +4,7 @@ import MicButton from "./mic-button/mic-button";
 import SendButton from "./send-button/send-button";
 import { useSelector, useDispatch } from "react-redux";
 import CancelButton from "./cancel-button/cancel-button";
+import TestButton from "./test-button/test-button";
 
 export default function AppFooter() {
   const [text, setText] = useState("");
@@ -31,7 +32,8 @@ export default function AppFooter() {
             onChange={onChange}
           />
         )}
-        <SendButton />
+        {/* <SendButton /> */}
+        <TestButton />
       </div>
     </div>
   );
