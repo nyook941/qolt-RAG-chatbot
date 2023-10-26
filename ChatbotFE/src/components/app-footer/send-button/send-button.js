@@ -10,8 +10,8 @@ export default function SendButton({ ws }) {
   const dispatch = useDispatch();
   const blobUrl = useSelector((state) => state.chat.audioBlobUrl);
   const s3 = new S3({
-    accessKeyId: "AKIAYBS2WQ3NE6B33HMJ",
-    secretAccessKey: "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",
+    accessKeyId: process.env.REACT_APP_ACCESS_KEY_ID,
+    secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY,
   });
 
   const sendAudio = useCallback(async () => {
