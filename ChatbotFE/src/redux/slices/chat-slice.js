@@ -1,24 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
-  requests: [],
-  responses: [],
   isRecording: false,
   isMicBlocked: false,
   audioBlobUrl: "",
   isAudioLoading: false,
+  messages: [],
 };
 
 export const chatSlice = createSlice({
   name: "chat",
   initialState,
   reducers: {
-    addResponse: (state, action) => {
-      state.responses.push(action.payload);
-    },
-    addRequest: (state, action) => {
-      state.requests.push(action.payload);
-    },
     setIsRecording: (state, action) => {
       state.isRecording = action.payload;
     },
@@ -28,15 +21,13 @@ export const chatSlice = createSlice({
     setAudioBlobUrl: (state, action) => {
       state.audioBlobUrl = action.payload;
     },
+    addMessage: (state, action) => {
+      state.messages.push(action.payload);
+    },
   },
 });
 
-export const {
-  addResponse,
-  addRequest,
-  setIsRecording,
-  setIsMicBlocked,
-  setAudioBlobUrl,
-} = chatSlice.actions;
+export const { setIsRecording, setIsMicBlocked, setAudioBlobUrl, addMessage } =
+  chatSlice.actions;
 
 export default chatSlice.reducer;

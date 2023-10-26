@@ -30,9 +30,14 @@ export default function AppFooter({ ws }) {
             placeholder="Ask anything about QoLT..."
             value={text}
             onChange={onChange}
+            onKeyPress={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+              }
+            }}
           />
         )}
-        <SendButton ws={ws} text={text} />
+        <SendButton ws={ws} text={text} setText={setText} />
       </div>
     </div>
   );

@@ -1,5 +1,3 @@
-
-
 from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
@@ -29,7 +27,7 @@ app.add_middleware(
 )
 # http://localhost:3000
 # Set OpenAI API Key
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "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"
 
 
 

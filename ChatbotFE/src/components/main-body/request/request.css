@@ -1,0 +1,27 @@
+.Request {
+  display: inline-block;
+  background-color: rgb(155, 108, 20);
+  margin: 16px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  padding: 16px;
+  font-size: 18px;
+  font-weight: 500;
+  max-width: 75%;
+}
+
+.Request-container {
+  text-align: right;
+}
+
+.Request.slide-up-enter {
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+.Request.slide-up-enter-active {
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}

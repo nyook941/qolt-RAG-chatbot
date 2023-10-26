@@ -40,7 +40,7 @@ export default function App() {
   return (
     <div className="App">
       <AppHeader />
-      <MainBody ws={ws} />
+      <MainBody />
       <AppFooter ws={ws} />
     </div>
   );
