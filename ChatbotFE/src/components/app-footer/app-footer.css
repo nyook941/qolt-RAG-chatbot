@@ -8,7 +8,7 @@
   padding: 16px;
   border-radius: 10px;
   width: 75%;
-  height: 52px;
+  height: auto;
 }
 
 .Input-field textarea {
@@ -20,8 +20,10 @@
   flex: 1;
   resize: none;
   flex-direction: row;
-  line-height: 20px;
   overflow: hidden;
+  min-height: calc(1em + 4px);
+  margin-left: 8px;
+  margin-right: 8px;
 }
 
 .Input-field textarea:focus {
@@ -42,4 +44,11 @@
   padding: 16px;
   justify-content: center;
   height: auto;
+}
+
+.confirmation {
+  flex: 1;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
 }
