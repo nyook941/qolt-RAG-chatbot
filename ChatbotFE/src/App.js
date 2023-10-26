@@ -41,7 +41,7 @@ export default function App() {
     <div className="App">
       <AppHeader />
       <MainBody ws={ws} />
-      <AppFooter />
+      <AppFooter ws={ws} />
     </div>
   );
 }

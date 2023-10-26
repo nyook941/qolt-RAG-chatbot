@@ -6,6 +6,7 @@ const initialState = {
   isRecording: false,
   isMicBlocked: false,
   audioBlobUrl: "",
+  isAudioLoading: false,
 };
 
 export const chatSlice = createSlice({
