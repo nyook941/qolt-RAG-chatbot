@@ -4,9 +4,12 @@ import { useSelector } from "react-redux";
 import Request from "./request/request";
 import Response from "./response/response";
 import LoadingResponse from "./loading-response/loading-response";
+import LoadingRequest from "./loading-request/loading-request";
 
 export default function MainBody() {
-  const { messages, isResponseLoading } = useSelector((state) => state.chat);
+  const { messages, isResponseLoading, isTranscribeLoading } = useSelector(
+    (state) => state.chat
+  );
   const divRef = useRef(null);
 
   useEffect(() => {
@@ -27,6 +30,7 @@ export default function MainBody() {
         return null;
       })}
       {isResponseLoading && <LoadingResponse />}
+      {isTranscribeLoading && <LoadingRequest />}
     </div>
   );
 }

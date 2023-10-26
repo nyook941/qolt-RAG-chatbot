@@ -6,6 +6,8 @@ const initialState = {
   audioBlobUrl: "",
   isAudioLoading: false,
   isResponseLoading: false,
+  transcribeWebsocket: "",
+  isTranscribeLoading: false,
   messages: [],
 };
 
@@ -28,6 +30,12 @@ export const chatSlice = createSlice({
     setIsResponseLoading: (state, action) => {
       state.isResponseLoading = action.payload;
     },
+    setTranscribeWebsocket: (state, action) => {
+      state.transcribeWebsocket = action.payload;
+    },
+    setIsTranscribeLoading: (state, action) => {
+      state.isTranscribeLoading = action.payload;
+    },
   },
 });
 
@@ -37,6 +45,8 @@ export const {
   setAudioBlobUrl,
   addMessage,
   setIsResponseLoading,
+  setTranscribeWebsocket,
+  setIsTranscribeLoading,
 } = chatSlice.actions;
 
 export default chatSlice.reducer;

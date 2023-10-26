@@ -5,6 +5,8 @@ import {
   addMessage,
   setAudioBlobUrl,
   setIsResponseLoading,
+  setIsTranscribeLoading,
+  setTranscribeWebsocket,
 } from "../../../redux/slices/chat-slice";
 import { S3 } from "aws-sdk";
 import axios from "axios";
@@ -13,7 +15,9 @@ import sendRequestToFastAPI from "../test-button/send-request-to-fastAPI";
 
 export default function SendButton({ ws, text, setText }) {
   const dispatch = useDispatch();
-  const blobUrl = useSelector((state) => state.chat.audioBlobUrl);
+  const { audioBlobUrl, transcribeWebsocket } = useSelector(
+    (state) => state.chat
+  );
 
   const s3 = new S3({
     accessKeyId: process.env.REACT_APP_ACCESS_KEY_ID,
@@ -22,14 +26,15 @@ export default function SendButton({ ws, text, setText }) {
 
   const sendAudio = useCallback(async () => {
     console.log("attempting to send to s3");
+    dispatch(setIsTranscribeLoading(true));
     const fileName = `recording-${Date.now()}.mp3`;
     try {
-      if (!blobUrl) {
+      if (!audioBlobUrl) {
         console.error("Blob URL is empty.");
         return;
       }
 
-      const response = await axios.get(blobUrl, {
+      const response = await axios.get(audioBlobUrl, {
         responseType: "arraybuffer",
       });
 
@@ -66,10 +71,10 @@ export default function SendButton({ ws, text, setText }) {
         console.log("Sent:", payload);
       }
     }
-  }, [blobUrl, dispatch, s3]);
+  }, [audioBlobUrl, dispatch, s3]);
 
-  const sendToFastAPI = () => {
-    dispatch(addMessage({ messageType: "request", memo: text }));
+  const sendToFastAPI = (input) => {
+    dispatch(addMessage({ messageType: "request", memo: input }));
     dispatch(setIsResponseLoading(true));
     setText("");
     const setChatbotResponse = (response) => {
@@ -78,13 +83,13 @@ export default function SendButton({ ws, text, setText }) {
       dispatch(setIsResponseLoading(false));
     };
 
-    sendRequestToFastAPI(text, setChatbotResponse);
+    sendRequestToFastAPI(input, setChatbotResponse);
   };
 
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Enter" && text.trim() !== "") {
-        sendToFastAPI();
+        sendToFastAPI(text);
       }
     };
 
@@ -95,12 +100,23 @@ export default function SendButton({ ws, text, setText }) {
     };
   }, [text, sendToFastAPI]);
 
+  useEffect(() => {
+    if (transcribeWebsocket !== "") {
+      sendToFastAPI(transcribeWebsocket);
+      dispatch(setTranscribeWebsocket(""));
+    }
+  }, [transcribeWebsocket]);
+
   return (
     <button
-      className={blobUrl !== "" ? "Send-Audio" : "Button"}
-      onClick={blobUrl !== "" ? sendAudio : sendToFastAPI}
+      className={audioBlobUrl !== "" ? "Send-Audio" : "Button"}
+      onClick={audioBlobUrl !== "" ? sendAudio : sendToFastAPI}
     >
-      <i className={blobUrl !== "" ? "material-icons audio" : "material-icons"}>
+      <i
+        className={
+          audioBlobUrl !== "" ? "material-icons audio" : "material-icons"
+        }
+      >
         send
       </i>
     </button>
