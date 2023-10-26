@@ -3,9 +3,10 @@ import "./main-body.css";
 import { useSelector } from "react-redux";
 import Request from "./request/request";
 import Response from "./response/response";
+import LoadingResponse from "./loading-response/loading-response";
 
 export default function MainBody() {
-  const messages = useSelector((state) => state.chat.messages);
+  const { messages, isResponseLoading } = useSelector((state) => state.chat);
   const divRef = useRef(null);
 
   useEffect(() => {
@@ -25,6 +26,7 @@ export default function MainBody() {
         }
         return null;
       })}
+      {isResponseLoading && <LoadingResponse />}
     </div>
   );
 }

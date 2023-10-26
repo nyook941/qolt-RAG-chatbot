@@ -5,6 +5,7 @@ const initialState = {
   isMicBlocked: false,
   audioBlobUrl: "",
   isAudioLoading: false,
+  isResponseLoading: false,
   messages: [],
 };
 
@@ -24,10 +25,18 @@ export const chatSlice = createSlice({
     addMessage: (state, action) => {
       state.messages.push(action.payload);
     },
+    setIsResponseLoading: (state, action) => {
+      state.isResponseLoading = action.payload;
+    },
   },
 });
 
-export const { setIsRecording, setIsMicBlocked, setAudioBlobUrl, addMessage } =
-  chatSlice.actions;
+export const {
+  setIsRecording,
+  setIsMicBlocked,
+  setAudioBlobUrl,
+  addMessage,
+  setIsResponseLoading,
+} = chatSlice.actions;
 
 export default chatSlice.reducer;

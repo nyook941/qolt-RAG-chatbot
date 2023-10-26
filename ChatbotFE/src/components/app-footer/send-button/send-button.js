@@ -1,7 +1,11 @@
 import React, { useEffect, useCallback } from "react";
 import "./send-button.css";
 import { useSelector, useDispatch } from "react-redux";
-import { addMessage, setAudioBlobUrl } from "../../../redux/slices/chat-slice";
+import {
+  addMessage,
+  setAudioBlobUrl,
+  setIsResponseLoading,
+} from "../../../redux/slices/chat-slice";
 import { S3 } from "aws-sdk";
 import axios from "axios";
 import { Buffer } from "buffer";
@@ -66,10 +70,12 @@ export default function SendButton({ ws, text, setText }) {
 
   const sendToFastAPI = () => {
     dispatch(addMessage({ messageType: "request", memo: text }));
+    dispatch(setIsResponseLoading(true));
+    setText("");
     const setChatbotResponse = (response) => {
       console.log("Chatbot Response:", response);
       dispatch(addMessage({ messageType: "response", memo: response }));
-      setText("");
+      dispatch(setIsResponseLoading(false));
     };
 
     sendRequestToFastAPI(text, setChatbotResponse);
@@ -79,7 +85,6 @@ export default function SendButton({ ws, text, setText }) {
     const handleKeyDown = (e) => {
       if (e.key === "Enter" && text.trim() !== "") {
         sendToFastAPI();
-        setText("");
       }
     };
 

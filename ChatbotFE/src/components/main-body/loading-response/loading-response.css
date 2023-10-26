@@ -1,0 +1,15 @@
+.Loading-response {
+  display: inline-block;
+  background-color: green;
+  margin: 16px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  width: 50px;
+  height: 50px;
+}
+
+.Loading-response-container {
+  text-align: left;
+  transition: max-height 0.5s ease-in-out;
+}
