@@ -1,10 +1,10 @@
+// AppFooter.js
 import React, { useState } from "react";
 import "./app-footer.css";
 import MicButton from "./mic-button/mic-button";
 import SendButton from "./send-button/send-button";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import CancelButton from "./cancel-button/cancel-button";
-import TestButton from "./test-button/test-button";
 
 export default function AppFooter({ ws }) {
   const [text, setText] = useState("");
@@ -32,7 +32,7 @@ export default function AppFooter({ ws }) {
             onChange={onChange}
           />
         )}
-        <SendButton ws={ws} />
+        <SendButton ws={ws} text={text} />
       </div>
     </div>
   );

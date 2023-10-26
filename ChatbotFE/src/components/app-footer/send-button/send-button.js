@@ -1,14 +1,16 @@
 import React, { useCallback } from "react";
 import "./send-button.css";
 import { useSelector, useDispatch } from "react-redux";
-import { setAudioBlobUrl } from "../../../redux/slices/chat-slice";
+import { addResponse, setAudioBlobUrl } from "../../../redux/slices/chat-slice";
 import { S3 } from "aws-sdk";
 import axios from "axios";
 import { Buffer } from "buffer";
+import sendRequestToFastAPI from "../test-button/send-request-to-fastAPI";
 
-export default function SendButton({ ws }) {
+export default function SendButton({ ws, text }) {
   const dispatch = useDispatch();
   const blobUrl = useSelector((state) => state.chat.audioBlobUrl);
+
   const s3 = new S3({
     accessKeyId: "AKIAYBS2WQ3NE6B33HMJ",
     secretAccessKey: "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",
@@ -63,10 +65,20 @@ export default function SendButton({ ws }) {
   }, [blobUrl, dispatch, s3]);
 
   
+
+  const sendToFastAPI = () => {
+    const setChatbotResponse = (response) => {
+      console.log("Chatbot Response:", response);
+      dispatch(addResponse(response)); 
+    };
+
+    sendRequestToFastAPI(text, setChatbotResponse);
+  };
+
   return (
     <button
       className={blobUrl !== "" ? "Send-Audio" : "Button"}
-      onClick={sendAudio}
+      onClick={blobUrl !== "" ? sendAudio : sendToFastAPI}
     >
       <i className={blobUrl !== "" ? "material-icons audio" : "material-icons"}>
         send

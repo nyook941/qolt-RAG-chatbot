@@ -2,6 +2,7 @@
 
 from fastapi import FastAPI
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 
 from gpt_index import (
     SimpleDirectoryReader,
@@ -18,8 +19,19 @@ import glob
 # Initialize FastAPI
 app = FastAPI()
 
+# Configure CORS to allow requests from your web application's domain
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Replace with your web app's domain
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+# http://localhost:3000
 # Set OpenAI API Key
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "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"
+
+
 
 def construct_index():
     # Your existing code for constructing the index
@@ -63,8 +75,13 @@ class InputText(BaseModel):
 
 @app.post("/api/chatbot")
 def chatbot_endpoint(input_data: InputText):
-    response = chatbot(input_data.text)
-    return {"response": response}
+    try:
+        print("Received Input Data:", input_data)  # Log the received data
+        response = chatbot(input_data.text)
+        return {"response": response}
+    except Exception as e:
+        print("Exception:", e)  # Log any exceptions
+        return {"response": "An error occurred during processing."}
 
 
 if __name__ == "__main__":
