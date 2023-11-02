@@ -27,7 +27,7 @@ app.add_middleware(
 )
 # http://localhost:3000
 # Set OpenAI API Key
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "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"
 
 
 
