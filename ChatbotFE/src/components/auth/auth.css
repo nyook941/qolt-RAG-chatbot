@@ -1,0 +1,101 @@
+.Login-screen {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.Utd-background {
+  display: flex;
+  height: 100%;
+  width: 60%;
+  object-fit: cover;
+}
+
+.Logo {
+  position: absolute;
+  top: 32px;
+  left: 32px;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  border-radius: 30px;
+  border-width: 10px;
+  border-color: green;
+  border-style: solid;
+  width: 300px;
+  height: auto;
+  object-fit: fill;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.Logo img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 30px;
+}
+
+.Title-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  font-weight: 600;
+}
+
+.Auth-button-container {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.Auth-button-container button {
+  background-color: rgb(185, 121, 0);
+  border-radius: 10px;
+  color: white;
+  border-width: 0px;
+  padding: 16px;
+  font-size: 16px;
+  margin-right: 16px;
+  font-weight: 600;
+  width: 150px;
+  transition: background-color 0.3s ease;
+}
+
+.Login-button {
+  background-color: green;
+  border-radius: 10px;
+  color: white;
+  border-width: 0px;
+  padding: 16px;
+  font-size: 16px;
+  margin-right: 16px;
+  font-weight: 600;
+  width: 150px;
+}
+
+.Signup-button {
+  background-color: rgb(185, 121, 0);
+  border-radius: 10px;
+  color: white;
+  border-width: 0px;
+  padding: 16px;
+  font-size: 18px;
+  font-weight: 600;
+  width: 150px;
+}
+
+.Utd-logo {
+  display: flex;
+  width: 100px;
+  border-radius: 50px;
+  position: absolute;
+  bottom: 16px;
+}
+
+.Auth-button-container button:hover {
+  background-color: green;
+}
