@@ -2,15 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
+  setAttemptingLogin,
   setLoginEmail,
   setLoginError,
   setLoginPass,
 } from "../../../redux/slices/auth-slice";
+import "./log-in.css";
 
 export default function Login({ ws }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [errors, setErrors] = useState(false);
   const [empty, setEmpty] = useState(true);
 
   const { loginEmail, loginPass, attemptingLogin, loginError, loggedIn } =
@@ -27,6 +28,7 @@ export default function Login({ ws }) {
     if (!empty) {
       console.log("Sending:", message);
       ws.send(JSON.stringify(message));
+      dispatch(setAttemptingLogin(true));
     }
   };
 
@@ -81,10 +83,18 @@ export default function Login({ ws }) {
           </div>
         )}
         <button
-          class={loginError || empty ? "Errors-button" : "Continue-button"}
+          className={
+            loginError || empty || attemptingLogin
+              ? "Errors-button"
+              : "Continue-button"
+          }
+          disabled={attemptingLogin}
           onClick={handleContinueClick}
         >
-          Continue
+          <span>Continue</span>
+          {attemptingLogin && (
+            <img src={"/loading-alt.gif"} className="Loading-login" />
+          )}
         </button>
         <div className="subheader">
           Don't have an account?{" "}
