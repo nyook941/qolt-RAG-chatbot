@@ -1,18 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setLoginEmail, setLoginPass } from "../../../redux/slices/auth-slice";
+import {
+  setLoginEmail,
+  setLoginError,
+  setLoginPass,
+} from "../../../redux/slices/auth-slice";
 
 export default function Login({ ws }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [errors, setErrors] = useState(true);
+  const [errors, setErrors] = useState(false);
+  const [empty, setEmpty] = useState(true);
 
-  const { loginEmail, loginPass } = useSelector((state) => state.auth);
+  const { loginEmail, loginPass, attemptingLogin, loginError, loggedIn } =
+    useSelector((state) => state.auth);
 
   const handleContinueClick = () => {
-    if (!errors) {
-      navigate("/");
+    const message = {
+      action: "loginUser",
+      message: {
+        username: loginEmail,
+        password: loginPass,
+      },
+    };
+    if (!empty) {
+      console.log("Sending:", message);
+      ws.send(JSON.stringify(message));
     }
   };
 
@@ -32,15 +46,42 @@ export default function Login({ ws }) {
     dispatch(setLoginPass(e.target.value));
   };
 
+  useEffect(() => {
+    setEmpty(loginEmail === "" || loginPass === "");
+    dispatch(setLoginError(false));
+  }, [loginEmail, loginPass]);
+
+  useEffect(() => {
+    console.log("logged in", loggedIn);
+    if (loggedIn) {
+      navigate("/");
+    }
+  }, [loggedIn]);
+
   return (
     <div class="Signup-container">
       <img src="/utd-logo.png" class="Utd-logo" />
       <header class="Title-container">
         Welcome back
-        <input type="text" placeholder="Email address" />
-        <input type="password" placeholder="Password" />
+        <input
+          type="text"
+          placeholder="Email address"
+          onChange={handleEmailChange}
+          className={loginError ? "error" : ""}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          onChange={handlePassChange}
+          className={loginError ? "error" : ""}
+        />
+        {loginError && (
+          <div className="error-message">
+            Invalid email address or password.
+          </div>
+        )}
         <button
-          class={errors ? "Errors-button" : "Continue-button"}
+          class={loginError || empty ? "Errors-button" : "Continue-button"}
           onClick={handleContinueClick}
         >
           Continue

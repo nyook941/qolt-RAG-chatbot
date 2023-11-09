@@ -8,10 +8,10 @@ import ForgotPassword from "./components/auth/forgot-password/forgot-password";
 import Sockette from "sockette";
 import { useDispatch } from "react-redux";
 import {
-  setIsTranscribeLoading,
-  setTranscribeWebsocket,
-} from "./redux/slices/chat-slice";
-import { fetchUsers } from "./redux/slices/auth-slice";
+  setAttemptingLogin,
+  setLoggedIn,
+  setLoginError,
+} from "./redux/slices/auth-slice";
 
 export default function App() {
   const [ws, setWs] = useState(null);
@@ -21,22 +21,13 @@ export default function App() {
     const wsInstance = new Sockette(
       "wss://ehj9s7fnwb.execute-api.us-east-2.amazonaws.com/production",
       {
-        onopen: () => {
-          console.log("WebSocket connection opened");
-          const payload = {
-            action: "postId",
-          };
-          wsInstance.json(payload);
-          console.log("Sent:", payload);
-        },
         onmessage: (e) => {
           try {
-            console.log("Received:", JSON.parse(e.data));
-            if (e.data.includes("Transcription Job completed:")) {
-              const str = e.data;
-              const result = str.replace("Transcription Job completed: ", "");
-              dispatch(setTranscribeWebsocket(result));
-              dispatch(setIsTranscribeLoading(false));
+            const message = JSON.parse(e.data);
+            console.log("Received:", message);
+            switch (message.action) {
+              case "loginUser":
+                handleUserLogin(message);
             }
           } catch (error) {
             console.log("Error parsing message:", e.data, error);
@@ -51,6 +42,17 @@ export default function App() {
       wsInstance.close();
     };
   }, []);
+
+  const handleUserLogin = (message) => {
+    dispatch(setAttemptingLogin(false));
+    if (message.statusCode === 200) {
+      dispatch(setLoggedIn(true));
+      dispatch(setLoginError(false));
+    } else if (message.statusCode === 403) {
+      dispatch(setLoggedIn(false));
+      dispatch(setLoginError(true));
+    }
+  };
 
   return (
     <Router>

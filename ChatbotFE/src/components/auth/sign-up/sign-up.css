@@ -83,6 +83,6 @@
 
 .error-message {
   color: red;
-  margin-top: 8px; /* Or any suitable value */
-  font-size: 14px; /* Smaller font size for error message */
+  margin-top: 8px;
+  font-size: 14px;
 }

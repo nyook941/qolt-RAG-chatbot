@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 
 const initialState = {
   signUpEmail: "",
@@ -9,6 +8,9 @@ const initialState = {
   loginPass: "",
   email: "",
   password: "",
+  loggedIn: false,
+  attemptingLogin: false,
+  loginError: false,
 };
 
 export const authSlice = createSlice({
@@ -30,6 +32,15 @@ export const authSlice = createSlice({
     setLoginPass: (state, action) => {
       state.loginPass = action.payload;
     },
+    setLoggedIn: (state, action) => {
+      state.loggedIn = action.payload;
+    },
+    setAttemptingLogin: (state, action) => {
+      state.attemptingLogin = action.payload;
+    },
+    setLoginError: (state, action) => {
+      state.loginError = action.payload;
+    },
   },
 });
 
@@ -39,6 +50,9 @@ export const {
   setSignUpPass,
   setLoginEmail,
   setLoginPass,
+  setLoggedIn,
+  setAttemptingLogin,
+  setLoginError,
 } = authSlice.actions;
 
 export default authSlice.reducer;
