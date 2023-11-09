@@ -7,23 +7,9 @@ const initialState = {
   signUpConfirmPass: "",
   loginEmail: "",
   loginPass: "",
-  users: [],
+  email: "",
+  password: "",
 };
-
-export const fetchUsers = createAsyncThunk(
-  "auth/fetchUsers",
-  async (_, { dispatch }) => {
-    try {
-      const response = await axios.get(
-        "https://p7lflzf637.execute-api.us-east-2.amazonaws.com/prod/getUsers"
-      );
-      console.log(response.data);
-      return response.data;
-    } catch (error) {
-      console.error("Failed to fetch users:", error);
-    }
-  }
-);
 
 export const authSlice = createSlice({
   name: "auth",
@@ -38,9 +24,6 @@ export const authSlice = createSlice({
     setSignUpConfirmPass: (state, action) => {
       state.signUpConfirmPass = action.payload;
     },
-    setUsers: (state, action) => {
-      state.users = action.payload;
-    },
     setLoginEmail: (state, action) => {
       state.loginEmail = action.payload;
     },
@@ -48,22 +31,12 @@ export const authSlice = createSlice({
       state.loginPass = action.payload;
     },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchUsers.fulfilled, (state, action) => {
-        state.users = action.payload;
-      })
-      .addCase(fetchUsers.rejected, (state, action) => {
-        state.users = null;
-      });
-  },
 });
 
 export const {
   setSignUpConfirmPass,
   setSignUpEmail,
   setSignUpPass,
-  setUsers,
   setLoginEmail,
   setLoginPass,
 } = authSlice.actions;

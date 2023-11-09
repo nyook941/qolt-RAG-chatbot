@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import Sockette from "sockette";
 import "./App.css";
-import AppHeader from "./components/app-header/app-header";
-import MainBody from "./components/main-body/main-body";
-import AppFooter from "./components/app-footer/app-footer";
+import Auth from "./components/auth/auth";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import SignUp from "./components/auth/sign-up/sign-up";
+import Login from "./components/auth/log-in/log-in";
+import ForgotPassword from "./components/auth/forgot-password/forgot-password";
+import Sockette from "sockette";
+import { useDispatch } from "react-redux";
 import {
   setIsTranscribeLoading,
   setTranscribeWebsocket,
 } from "./redux/slices/chat-slice";
+import { fetchUsers } from "./redux/slices/auth-slice";
 
 export default function App() {
   const [ws, setWs] = useState(null);
@@ -50,10 +53,15 @@ export default function App() {
   }, []);
 
   return (
-    <div className="App">
-      <AppHeader />
-      <MainBody />
-      <AppFooter ws={ws} />
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Auth />} />
+          <Route path="/signup" element={<SignUp ws={ws} />} />
+          <Route path="/login" element={<Login ws={ws} />} />
+          <Route path="/forgot" element={<ForgotPassword />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }

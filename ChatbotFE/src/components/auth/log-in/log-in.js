@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setLoginEmail, setLoginPass } from "../../../redux/slices/auth-slice";
 
-export default function Login() {
+export default function Login({ ws }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [errors, setErrors] = useState(true);
