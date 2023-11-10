@@ -1,0 +1,93 @@
+.Signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.Title-container input {
+  margin-top: 30px;
+  padding: 16px;
+  font-size: 20px;
+  border-radius: 10px;
+  background-color: transparent;
+  border-color: orange;
+  outline: none;
+  border-width: 3px;
+  border-style: solid;
+  color: white;
+  width: 350px;
+  transition: border-color 0.3s ease;
+}
+
+.Title-container input:focus {
+  border-color: green;
+}
+
+.Title-container input::placeholder {
+  color: rgb(187, 187, 187);
+}
+
+.Continue-button {
+  border-radius: 10px;
+  font-size: 20px;
+  padding: 16px;
+  margin-top: 30px;
+  background-color: orange;
+  color: white;
+  width: 390px;
+  border-width: 0px;
+  transition: background-color 0.3s ease;
+}
+
+.Continue-button:hover {
+  background-color: green;
+}
+
+.Errors-button {
+  border-radius: 10px;
+  font-size: 20px;
+  padding: 16px;
+  margin-top: 30px;
+  background-color: grey;
+  color: white;
+  width: 390px;
+  border-width: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  position: relative;
+  transition: background-color 0.3s ease;
+  align-items: center;
+}
+
+.subheader {
+  margin-top: 30px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.Nav-back-login {
+  margin-top: 16px;
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: 400;
+  color: orange;
+  border-width: 0px;
+  transition: color 0.3s ease;
+}
+
+.Nav-back-login:hover {
+  color: green;
+}
+
+.Title-container input.error {
+  border-color: red;
+}
+
+.error-message {
+  color: red;
+  margin-top: 8px;
+  font-size: 14px;
+}

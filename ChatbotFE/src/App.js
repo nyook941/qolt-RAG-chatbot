@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import Sockette from "sockette";
 import "./App.css";
-import AppHeader from "./components/app-header/app-header";
-import MainBody from "./components/main-body/main-body";
-import AppFooter from "./components/app-footer/app-footer";
+import Auth from "./components/auth/auth";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import SignUp from "./components/auth/sign-up/sign-up";
+import Login from "./components/auth/log-in/log-in";
+import ForgotPassword from "./components/auth/forgot-password/forgot-password";
+import Sockette from "sockette";
+import { useDispatch } from "react-redux";
 import {
-  setIsTranscribeLoading,
-  setTranscribeWebsocket,
-} from "./redux/slices/chat-slice";
+  setAttemptingLogin,
+  setLoggedIn,
+  setLoginError,
+} from "./redux/slices/auth-slice";
+import Chatbot from "./components/chatbot/chatbot";
 
 export default function App() {
   const [ws, setWs] = useState(null);
@@ -18,22 +22,19 @@ export default function App() {
     const wsInstance = new Sockette(
       "wss://ehj9s7fnwb.execute-api.us-east-2.amazonaws.com/production",
       {
-        onopen: () => {
-          console.log("WebSocket connection opened");
-          const payload = {
-            action: "postId",
-          };
-          wsInstance.json(payload);
-          console.log("Sent:", payload);
-        },
         onmessage: (e) => {
           try {
-            console.log("Received:", JSON.parse(e.data));
-            if (e.data.includes("Transcription Job completed:")) {
-              const str = e.data;
-              const result = str.replace("Transcription Job completed: ", "");
-              dispatch(setTranscribeWebsocket(result));
-              dispatch(setIsTranscribeLoading(false));
+            const message = JSON.parse(e.data);
+            console.log("Received:", message);
+            console.log(message.action);
+            switch (message.action) {
+              case "loginUser":
+                handleUserLogin(message);
+                break;
+              case "createUser":
+                handleCreateUser(message);
+                break;
+              default:
             }
           } catch (error) {
             console.log("Error parsing message:", e.data, error);
@@ -49,11 +50,37 @@ export default function App() {
     };
   }, []);
 
+  const handleUserLogin = (message) => {
+    dispatch(setAttemptingLogin(false));
+    if (message.statusCode === 200) {
+      dispatch(setLoggedIn(true));
+      dispatch(setLoginError(false));
+    } else if (message.statusCode === 403) {
+      dispatch(setLoggedIn(false));
+      dispatch(setLoginError(true));
+    }
+  };
+
+  const handleCreateUser = (message) => {
+    dispatch(setAttemptingLogin(false));
+    if (message.statusCode === 200) {
+      console.log("create user success");
+      dispatch(setLoggedIn(true));
+      dispatch(setLoginError(false));
+    }
+  };
+
   return (
-    <div className="App">
-      <AppHeader />
-      <MainBody />
-      <AppFooter ws={ws} />
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Auth />} />
+          <Route path="/signup" element={<SignUp ws={ws} />} />
+          <Route path="/login" element={<Login ws={ws} />} />
+          <Route path="/forgot" element={<ForgotPassword />} />
+          <Route path="/chatbot" element={<Chatbot ws={ws} />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
