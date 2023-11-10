@@ -54,9 +54,8 @@ export default function Login({ ws }) {
   }, [loginEmail, loginPass]);
 
   useEffect(() => {
-    console.log("logged in", loggedIn);
     if (loggedIn) {
-      navigate("/");
+      navigate("/chatbot");
     }
   }, [loggedIn]);
 

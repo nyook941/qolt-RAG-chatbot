@@ -12,6 +12,7 @@ import {
   setLoggedIn,
   setLoginError,
 } from "./redux/slices/auth-slice";
+import Chatbot from "./components/chatbot/chatbot";
 
 export default function App() {
   const [ws, setWs] = useState(null);
@@ -25,9 +26,15 @@ export default function App() {
           try {
             const message = JSON.parse(e.data);
             console.log("Received:", message);
+            console.log(message.action);
             switch (message.action) {
               case "loginUser":
                 handleUserLogin(message);
+                break;
+              case "createUser":
+                handleCreateUser(message);
+                break;
+              default:
             }
           } catch (error) {
             console.log("Error parsing message:", e.data, error);
@@ -54,6 +61,15 @@ export default function App() {
     }
   };
 
+  const handleCreateUser = (message) => {
+    dispatch(setAttemptingLogin(false));
+    if (message.statusCode === 200) {
+      console.log("create user success");
+      dispatch(setLoggedIn(true));
+      dispatch(setLoginError(false));
+    }
+  };
+
   return (
     <Router>
       <div className="App">
@@ -62,6 +78,7 @@ export default function App() {
           <Route path="/signup" element={<SignUp ws={ws} />} />
           <Route path="/login" element={<Login ws={ws} />} />
           <Route path="/forgot" element={<ForgotPassword />} />
+          <Route path="/chatbot" element={<Chatbot ws={ws} />} />
         </Routes>
       </div>
     </Router>

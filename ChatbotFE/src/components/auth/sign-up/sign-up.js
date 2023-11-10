@@ -2,24 +2,33 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./sign-up.css";
 import {
+  setAttemptingLogin,
   setSignUpConfirmPass,
   setSignUpEmail,
   setSignUpPass,
 } from "../../../redux/slices/auth-slice";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
 export default function SignUp({ ws }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  console.log(users);
+
+  const [userNameTaken, setUserNameTaken] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [errors, setErrors] = useState(true);
 
-  const { signUpPass, signUpConfirmPass, signUpEmail } = useSelector(
-    (state) => state.auth
-  );
+  const {
+    signUpPass,
+    signUpConfirmPass,
+    signUpEmail,
+    loggedIn,
+    attemptingLogin,
+  } = useSelector((state) => state.auth);
 
   const handleCreateClick = () => {
     if (!errors) {
@@ -31,9 +40,9 @@ export default function SignUp({ ws }) {
           role: "User",
         },
       };
+      dispatch(setAttemptingLogin(true));
       console.log(JSON.stringify(message));
       ws.send(JSON.stringify(message));
-      navigate("/");
     }
   };
 
@@ -43,7 +52,7 @@ export default function SignUp({ ws }) {
 
   const handleEmailChange = (e) => {
     dispatch(setSignUpEmail(e.target.value));
-    if (emailError) {
+    if (emailError || userNameTaken) {
       handleEmailBlur();
     }
   };
@@ -102,6 +111,16 @@ export default function SignUp({ ws }) {
     signUpPass,
   ]);
 
+  useEffect(() => {
+    if (loggedIn) {
+      navigate("/chatbot");
+    }
+  }, [loggedIn]);
+
+  useEffect(() => {
+    dispatch();
+  }, []);
+
   return (
     <div className="Signup-container">
       <img src="/utd-logo.png" className="Utd-logo" />
@@ -140,10 +159,15 @@ export default function SignUp({ ws }) {
           <div className="error-message">Passwords do not match.</div>
         )}
         <button
-          className={errors ? "Errors-button" : "Continue-button"}
+          className={
+            errors || attemptingLogin ? "Errors-button" : "Continue-button"
+          }
           onClick={handleCreateClick}
         >
-          Continue
+          <span>Continue</span>
+          {attemptingLogin && (
+            <img src={"/loading-alt.gif"} className="Loading-login" />
+          )}
         </button>
         <div className="subheader">
           Already have an account?{" "}

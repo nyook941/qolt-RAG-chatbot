@@ -11,6 +11,7 @@ const initialState = {
   loggedIn: false,
   attemptingLogin: false,
   loginError: false,
+  users: [],
 };
 
 export const authSlice = createSlice({
@@ -41,6 +42,9 @@ export const authSlice = createSlice({
     setLoginError: (state, action) => {
       state.loginError = action.payload;
     },
+    setUsers: (state, action) => {
+      state.loginError = action.payload;
+    },
   },
 });
 
@@ -53,6 +57,7 @@ export const {
   setLoggedIn,
   setAttemptingLogin,
   setLoginError,
+  setUsers,
 } = authSlice.actions;
 
 export default authSlice.reducer;
