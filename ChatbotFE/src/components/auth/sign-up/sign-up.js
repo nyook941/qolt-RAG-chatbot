@@ -14,8 +14,6 @@ export default function SignUp({ ws }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log(users);
-
   const [userNameTaken, setUserNameTaken] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
@@ -116,10 +114,6 @@ export default function SignUp({ ws }) {
       navigate("/chatbot");
     }
   }, [loggedIn]);
-
-  useEffect(() => {
-    dispatch();
-  }, []);
 
   return (
     <div className="Signup-container">
