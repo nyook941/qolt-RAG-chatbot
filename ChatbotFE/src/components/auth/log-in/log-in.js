@@ -60,9 +60,9 @@ export default function Login({ ws }) {
   }, [loggedIn]);
 
   return (
-    <div class="Signup-container">
-      <img src="/utd-logo.png" class="Utd-logo" />
-      <header class="Title-container">
+    <div className="Signup-container">
+      <img src="/utd-logo.png" className="Utd-logo" />
+      <header className="Title-container">
         Welcome back
         <input
           type="text"
@@ -97,11 +97,11 @@ export default function Login({ ws }) {
         </button>
         <div className="subheader">
           Don't have an account?{" "}
-          <button class="Nav-back-login" onClick={handleSignupClick}>
+          <button className="Nav-back-login" onClick={handleSignupClick}>
             Sign up
           </button>
         </div>
-        <button class="Nav-back-login" onClick={handleForgotClick}>
+        <button className="Nav-back-login" onClick={handleForgotClick}>
           Forgot password?
         </button>
       </header>

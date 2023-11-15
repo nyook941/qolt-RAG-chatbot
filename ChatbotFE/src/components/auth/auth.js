@@ -19,13 +19,13 @@ export default function Auth() {
       <header className="Logo">
         <img src={"/header.jpg"} />
       </header>
-      <header class="Title-container">
+      <header className="Title-container">
         Learn about the Quality of Life Technology Lab
-        <header class="Auth-button-container">
+        <header className="Auth-button-container">
           <button onClick={handleLoginClick}>Log in</button>
           <button onClick={handleSignUpClick}>Sign up</button>
         </header>
-        <img src={"/utd-logo.png"} class="Utd-logo" />
+        <img src={"/utd-logo.png"} className="Utd-logo" />
       </header>
     </div>
   );
