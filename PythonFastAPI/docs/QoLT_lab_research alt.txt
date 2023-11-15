@@ -1,0 +1,92 @@
+QUALITY OF LIFE TECHNOLOGY LABORATORY
+
+TECHNOLOGIES DEVELOPED:
+1. AI for Breast Cancer Detection:
+   - Accuracy: 95.1%
+   - FDA Clearance: Obtained
+   - Patents: Pending
+
+2. AI for Heart Arrhythmia Detection:
+   - Detects 15+ Arrhythmias
+   - Accuracy: Highly Accurate
+   - FDA Clearance: Under Preparation
+   - Patents: 1 Granted, 1 Pending
+   - Awards: 2nd Place in International Competition
+
+3. AI for Sleep Apnea and Sleep Quality Estimation:
+   - Based on: ECG, Oximetry
+   - Patents: 1 Granted
+
+4. AI for Oral Cancer Detection:
+   - Tool: Smart Phone
+   - Status: International Collaboration, to be tested and deployed internationally
+
+5. Early Prediction of Respiratory Episodes using AI:
+   - Uses: Indoor Environment + Weather and Peak-Flow Meter Reading
+
+6. Next Generation Telemedicine Platform:
+   - Features: Immersive Doctor Office Visit from Home
+
+7. AI-Based Self-Management of Heart Failure:
+   - Test: Successfully on 13 Patients
+   - Location: Texas Health Cleburn Hospital, Cleburn, TX
+
+RESEARCH AREAS:
+1. Quantum Machine Learning:
+   - Facility: IBM
+   - Focus: Algorithms Using Less Training Data
+
+2. Racially Unbiased AI:
+   - Status: Collecting Data, International Collaboration
+   - Patents: 1 Application Pending
+
+3. Explainable AI for Medical Images:
+   - Collaboration: Dr. Gopal Gupta
+
+4. 5G Innovation Lab for Virtual Healthcare:
+   - Collaboration: JSoM; Partners: AT&T and Ericsson
+
+5. Edge-Computing and TinyML:
+   - Collaboration: Dr. Tooraj Nikoubin
+
+6. AI/ML for Medical Imaging:
+   - Types: 2D/3D Mammogram, Ultrasound, X-ray, MRI
+   - Collaboration: Dr. Kathy Brown and Dr. C. S. Mani (Apollo Hospital, Chennai, India)
+
+BREAST CANCER CHALLENGE:
+- AI Systems Difficulty: Detection in Dense Breast Tissue, Racial/Ethnic Bias
+- Unbiased AI System: Detects Tumors in Problematic Cases
+- Metrics:
+  - AUC-ROC: 95.6%
+  - Sensitivity: 87.21%
+  - Specificity: 90.25%
+- Mammogram Analyzer: https://automammogram.utdallas.edu/home
+
+AUTOMATED ORAL CANCER DETECTION:
+- Tools: TensorFlow Lite, TinyML
+- Image Preprocessing Steps: Read, Resize, Remove Noise, Segmentation, Morphology
+
+HEART ARRHYTHMIA DETECTION ALGORITHM:
+- Published: IEEE EMBC 2020
+- Results:
+  - QRS Detection: Sensitivity 99.61%, Precision 99.88%, F-Score 99.74%
+  - AF Detection: Sensitivity 96.88%, Precision 98.87%, F-Score 97.86%
+  - PVC Detection: Sensitivity 92.67%, Precision 95.58%, F-Score 94.1%
+  - VT/VF Detection: Sensitivity 97.90%, Precision 95.77%, F-Score 96.82%
+- Patents: 1 Pending, 1 Issued
+- Awards: Runner-up at Physionet/Computing in Cardiology Challenge
+- ECG Analyzer: https://autoecg.utdallas.edu/
+
+REAL-TIME ASSESSMENT OF SLEEP APNEA AND SLEEP QUALITY:
+- Patent: US 2013/0046151 A1 Issued
+
+ABOUT LAKSHMAN TAMIL:
+- Position: Professor of Electrical and Computer Engineering, Director of Quality of Life Technology Laboratory, University of Texas at Dallas
+- Education: Ph.D. Electrical Engineering, M.S. Mathematics, M. Tech. Microwave and Optical Communications, B.E. Electronics and Communications Engineering
+- Experience: Corporate, Entrepreneurial, Academic
+- Contributions: Over 160 research publications, 23 patents, 24 doctoral dissertations
+- Innovations: AI for disease monitoring, telemedicine
+- Career Highlights: Founder of Yotta Networks, Senior Manager at Alcatel, Consultant to various companies
+- Recognition: Best teaching award, Fellow of NAI, OPTICA, Electromagnetics Academy, Senior Member of IEEE
+- Current Roles: President and CEO of HygeiaTel, Inc., Member of Governing and Advisory Boards
+- Research Interests: Quantum Machine Learning, Telemedicine, IoT, AI applications to Medicine and Healthcare.

@@ -14,6 +14,14 @@ const initialState = {
   users: [],
 };
 
+export const fetchUsers = createAsyncThunk("auth/fetchUsers", async () => {
+  const response = await fetch(
+    "https://p7lflzf637.execute-api.us-east-2.amazonaws.com/prod/getUsers"
+  );
+  const users = await response.json();
+  return users;
+});
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -45,6 +53,18 @@ export const authSlice = createSlice({
     setUsers: (state, action) => {
       state.loginError = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchUsers.pending, (state) => {
+        // Handle loading state
+      })
+      .addCase(fetchUsers.fulfilled, (state, action) => {
+        state.users = action.payload.map((user) => user.username);
+      })
+      .addCase(fetchUsers.rejected, (state) => {
+        // Handle error state
+      });
   },
 });
 

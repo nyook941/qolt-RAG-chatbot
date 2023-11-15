@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./sign-up.css";
 import {
+  fetchUsers,
   setAttemptingLogin,
   setSignUpConfirmPass,
   setSignUpEmail,
   setSignUpPass,
 } from "../../../redux/slices/auth-slice";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 
 export default function SignUp({ ws }) {
   const navigate = useNavigate();
@@ -26,6 +26,7 @@ export default function SignUp({ ws }) {
     signUpEmail,
     loggedIn,
     attemptingLogin,
+    users,
   } = useSelector((state) => state.auth);
 
   const handleCreateClick = () => {
@@ -39,7 +40,6 @@ export default function SignUp({ ws }) {
         },
       };
       dispatch(setAttemptingLogin(true));
-      console.log(JSON.stringify(message));
       ws.send(JSON.stringify(message));
     }
   };
@@ -73,6 +73,8 @@ export default function SignUp({ ws }) {
     if (signUpEmail != "") {
       const emailRegex = /\S+@\S+\.\S+/;
       const validEmail = emailRegex.test(signUpEmail);
+      const userTaken = users.includes(signUpEmail);
+      setUserNameTaken(userTaken);
       setEmailError(!validEmail);
     }
   };
@@ -98,7 +100,8 @@ export default function SignUp({ ws }) {
         confirmPasswordError ||
         signUpConfirmPass === "" ||
         signUpPass === "" ||
-        signUpEmail === ""
+        signUpEmail === "" ||
+        userNameTaken
     );
   }, [
     emailError,
@@ -115,6 +118,10 @@ export default function SignUp({ ws }) {
     }
   }, [loggedIn]);
 
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, []);
+
   return (
     <div className="Signup-container">
       <img src="/utd-logo.png" className="Utd-logo" />
@@ -125,10 +132,15 @@ export default function SignUp({ ws }) {
           placeholder="Email address"
           onChange={handleEmailChange}
           onBlur={handleEmailBlur}
-          className={emailError ? "error" : ""}
+          className={emailError || userNameTaken ? "error" : ""}
         />
         {emailError && (
           <div className="error-message">Invalid email address.</div>
+        )}
+        {userNameTaken && (
+          <div className="error-message">
+            The email address already has an account.
+          </div>
         )}
         <input
           type="password"
