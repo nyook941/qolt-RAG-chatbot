@@ -1,0 +1,37 @@
+.Upload-Text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.dotted-border-rectangle {
+  border: 5px dotted rgb(102, 102, 102);
+  width: 600px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  border-radius: 10px;
+  flex-direction: column;
+}
+
+.dotted-border-rectangle button {
+  background-color: rgb(184, 119, 0);
+  color: white;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 24px;
+  border-width: 0px;
+  margin-top: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.dotted-border-rectangle button:hover {
+  background-color: green;
+}
+
+.dotted-border-rectangle p {
+  font-size: 18px;
+}

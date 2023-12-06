@@ -1,4 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, File, UploadFile
+import shutil
+import os
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -27,7 +29,7 @@ app.add_middleware(
 )
 # http://localhost:3000
 # Set OpenAI API Key
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "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"
 
 
 
@@ -80,6 +82,20 @@ def chatbot_endpoint(input_data: InputText):
     except Exception as e:
         print("Exception:", e)  # Log any exceptions
         return {"response": "An error occurred during processing."}
+
+@app.post("/api/upload")
+async def upload_file(file: UploadFile = File(...)):
+    file_location = f"./docs/{file.filename}"
+    with open(file_location, "wb+") as file_object:
+        shutil.copyfileobj(file.file, file_object)
+    
+    return {"info": f"file '{file.filename}' saved at '{file_location}'"}
+
+@app.get("/api/files")
+def files_endpoint():
+    folder_path = "./docs"
+    file_list = os.listdir(folder_path)
+    return file_list
 
 
 if __name__ == "__main__":

@@ -5,24 +5,36 @@ import AppHeader from "../app-header/app-header";
 import MainBody from "../main-body/main-body";
 import AppFooter from "../app-footer/app-footer";
 import { useNavigate } from "react-router-dom";
+import Drawer from "./Drawer/drawer";
+import Upload from "./upload/upload";
 
 export default function Chatbot({ ws }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { loggedIn } = useSelector((state) => state.auth);
+  const { view } = useSelector((state) => state.chat);
 
   useEffect(() => {
-    if (!loggedIn) {
-      navigate("/");
-    }
+    //   if (!loggedIn) {
+    //     navigate("/");
+    //   }
+    // dispatch()
   }, []);
 
   return (
     <div className="App">
-      <AppHeader />
-      <MainBody />
-      <AppFooter ws={ws} />
+      <Drawer />
+      <div className="Chat">
+        {view === "chat" ? (
+          <>
+            <MainBody />
+            <AppFooter ws={ws} />
+          </>
+        ) : (
+          <Upload />
+        )}
+      </div>
     </div>
   );
 }

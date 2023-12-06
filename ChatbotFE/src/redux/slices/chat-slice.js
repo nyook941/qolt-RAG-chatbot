@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
   isRecording: false,
@@ -9,7 +9,18 @@ const initialState = {
   transcribeWebsocket: "",
   isTranscribeLoading: false,
   messages: [],
+  view: "chat",
+  uploadedFiles: [],
 };
+
+export const fetchUploadedFiles = createAsyncThunk(
+  "chat/fetchUploadedFiles",
+  async () => {
+    const response = await fetch("http://localhost:8000/api/files");
+    const files = await response.json();
+    return files;
+  }
+);
 
 export const chatSlice = createSlice({
   name: "chat",
@@ -36,6 +47,27 @@ export const chatSlice = createSlice({
     setIsTranscribeLoading: (state, action) => {
       state.isTranscribeLoading = action.payload;
     },
+    setView: (state, action) => {
+      state.view = action.payload;
+    },
+    setFile: (state, action) => {
+      state.uploadedFiles = action.payload;
+    },
+    addFile: (state, action) => {
+      state.uploadedFiles.push(action.payload);
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchUploadedFiles.pending, (state) => {
+        // Handle loading state
+      })
+      .addCase(fetchUploadedFiles.fulfilled, (state, action) => {
+        state.uploadedFiles = action.payload;
+      })
+      .addCase(fetchUploadedFiles.rejected, (state) => {
+        // Handle error state
+      });
   },
 });
 
@@ -47,6 +79,9 @@ export const {
   setIsResponseLoading,
   setTranscribeWebsocket,
   setIsTranscribeLoading,
+  setView,
+  setFile,
+  addFile,
 } = chatSlice.actions;
 
 export default chatSlice.reducer;
