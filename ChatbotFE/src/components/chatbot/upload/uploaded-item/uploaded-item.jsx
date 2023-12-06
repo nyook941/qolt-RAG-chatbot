@@ -24,14 +24,9 @@ export default function UploadedItem({ filename, status }) {
         )}
         {filename}
       </div>
-      <div className="icon-name-container">
-        {status === "false" ? (
-          <GrCheckMark style={{ marginRight: "10px" }} />
-        ) : (
-          <GrDocumentPdf style={{ marginRight: "10px" }} />
-        )}
-        {filename}
-      </div>
+      <button>
+        <u>Remove</u>
+      </button>
     </div>
   );
 }
