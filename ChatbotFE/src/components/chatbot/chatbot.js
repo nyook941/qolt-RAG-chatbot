@@ -7,6 +7,7 @@ import AppFooter from "../app-footer/app-footer";
 import { useNavigate } from "react-router-dom";
 import Drawer from "./Drawer/drawer";
 import Upload from "./upload/upload";
+import { fetchUploadedFiles } from "../../redux/slices/chat-slice";
 
 export default function Chatbot({ ws }) {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export default function Chatbot({ ws }) {
     //   if (!loggedIn) {
     //     navigate("/");
     //   }
-    // dispatch()
+    dispatch(fetchUploadedFiles());
   }, []);
 
   return (

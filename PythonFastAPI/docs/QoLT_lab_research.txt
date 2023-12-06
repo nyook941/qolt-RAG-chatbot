@@ -1,59 +1,94 @@
-This document is a culmination of various research and technologies developed at the Quality of Life Technology Laboratory:
+You are a chatbot. You are to answer questions based off this knowledge base.
 
-TECHNOLOGIES DEVELOPED AT QUALITY OF LIFE TECHNOLOGY LABORATORY:
-- AI for breast cancer detection: Accuracy 95.1%, FDA clearance obtained, patents pending
-- AI for Heart Arrhythmia detection: 15+ Arrhythmia, highly accurate, under preparation for FDA clearance, 1 patent granted, 1 patent application pending; won 2nd place in international competition
-- AI for sleep Apnea and Sleep quality estimation: based on ECG, Oximetry; 1 patent granted
-- AI for Oral cancer detection using a smart Phone: international collaboration to collect data; will be tested and deployed internationally
-- Early Prediction of Respiratory Episodes using AI: Uses Indoor environment + weather and Peak-flow meter reading
-- Next generation Telemedicine Platform: Capable of creating an immersive doctor office visit right from the home
-- AI based Self-management of Heart Failure: successfully tested on 13 patients in Texas Health Cleburn Hospital, Cleburn, TX
+QUALITY OF LIFE TECHNOLOGY LABORATORY
 
-RESEARCH AT QUALITY OF LIFE TECHNOLOGY LABORATORY
-- Quantum Machine Learning: Using IBM facility, building algorithms that use less training data than classical machine learning
-- Racially Unbiased AI: Collecting data and collaborating internationally to achieve unbiased AI, one patent application pending on the architecture
-- Explainable AI for medical Images: in collaboration with Dr. Gopal Gupta
-- Building a 5G Innovation Lab for Virtual Healthcare: In collaboration with JSoM; AT&T and Ericsson are partners
-- Edge-computing and TinyML: in collaboration with Dr. Tooraj Nikoubin
-- AL/ML for medical imaging: 2D/3D mammogram, ultrasound, x-ray, MRI. Oral Cancer Detection. In collaboration with Dr. Kathy Brown and Dr. C. S. Mani (Apollo Hospital, Chennai, India)
+TECHNOLOGIES DEVELOPED:
+1. AI for Breast Cancer Detection:
+   - Accuracy: 95.1%
+   - FDA Clearance: Obtained
+   - Patents: Pending
 
-THE BREAST CANCER CHALLENGE - CATCHING THE SMALLEST OF TUMORS IN PATIENTS OF ALL RACES
-- Todays AI systems have difficulty detection small or obscured tumors within dense breast tissue and are racially/ethnically biased.
-- Our unbiased AI system can detect tumors in these problematic cases.
-- Table:
-    Metric      |   Result
-    AUC-ROC     |   95.6%
-    Sensitivity |   87.21%
-    Specificity |   90.25%
-- The mammogram analyzer can be found at this link: https://automammogram.utdallas.edu/home
+2. AI for Heart Arrhythmia Detection:
+   - Detects 15+ Arrhythmias
+   - Accuracy: Highly Accurate
+   - FDA Clearance: Under Preparation
+   - Patents: 1 Granted, 1 Pending
+   - Awards: 2nd Place in International Competition
 
-AUTOMATED ORAL CANCER DETECTION
-- Uses TensorFlow Lite and TinyML
-- Image Preprocessing uses the steps: Read image, Resize image, Remove noise, Segmentation, Morphology
-    
-MACHINE LEARNING ALGORITHM FOR HEART ARRHYTHMIA DETECTION
-- Table of results published in IEEE EMBC 2020 conference, July 20-24, 2020:
-    Metric      |   QRS Detection   |   AF Detection    |   PVC Detection   |   VT/VF Detection
-    Sensitivity |   99.61%          |   96.88%          |   92.67%          |   97.90%
-    Precision   |   99.88%          |   98.87%          |   95.58%          |   95.77%
-    F-Score     |   99.74%          |   97.86%          |   94.1%           |   96.82%
-- Patents: US 2022/0015711 A1 Pending. US 2015/9,161,705 B2 Issued.
-- Awards: Runner-up at the 2020 Annual Physionet/Computing in Cardiology Challenge
-- The link can be found here: https://autoecg.utdallas.edu/
+3. AI for Sleep Apnea and Sleep Quality Estimation:
+   - Based on: ECG, Oximetry
+   - Patents: 1 Granted
 
-REAL-TIME ASSESSMENT OF OBSTRUCTIVE SLEEP APNEA AND SLEEP QUALITY USING ECG AND MACHINE LEARNING
+4. AI for Oral Cancer Detection:
+   - Tool: Smart Phone
+   - Status: International Collaboration, to be tested and deployed internationally
+
+5. Early Prediction of Respiratory Episodes using AI:
+   - Uses: Indoor Environment + Weather and Peak-Flow Meter Reading
+
+6. Next Generation Telemedicine Platform:
+   - Features: Immersive Doctor Office Visit from Home
+
+7. AI-Based Self-Management of Heart Failure:
+   - Test: Successfully on 13 Patients
+   - Location: Texas Health Cleburn Hospital, Cleburn, TX
+
+RESEARCH AREAS:
+1. Quantum Machine Learning:
+   - Facility: IBM
+   - Focus: Algorithms Using Less Training Data
+
+2. Racially Unbiased AI:
+   - Status: Collecting Data, International Collaboration
+   - Patents: 1 Application Pending
+
+3. Explainable AI for Medical Images:
+   - Collaboration: Dr. Gopal Gupta
+
+4. 5G Innovation Lab for Virtual Healthcare:
+   - Collaboration: JSoM; Partners: AT&T and Ericsson
+
+5. Edge-Computing and TinyML:
+   - Collaboration: Dr. Tooraj Nikoubin
+
+6. AI/ML for Medical Imaging:
+   - Types: 2D/3D Mammogram, Ultrasound, X-ray, MRI
+   - Collaboration: Dr. Kathy Brown and Dr. C. S. Mani (Apollo Hospital, Chennai, India)
+
+BREAST CANCER CHALLENGE:
+- AI Systems Difficulty: Detection in Dense Breast Tissue, Racial/Ethnic Bias
+- Unbiased AI System: Detects Tumors in Problematic Cases
+- Metrics:
+  - AUC-ROC: 95.6%
+  - Sensitivity: 87.21%
+  - Specificity: 90.25%
+- Mammogram Analyzer: https://automammogram.utdallas.edu/home
+
+AUTOMATED ORAL CANCER DETECTION:
+- Tools: TensorFlow Lite, TinyML
+- Image Preprocessing Steps: Read, Resize, Remove Noise, Segmentation, Morphology
+
+HEART ARRHYTHMIA DETECTION ALGORITHM:
+- Published: IEEE EMBC 2020
+- Results:
+  - QRS Detection: Sensitivity 99.61%, Precision 99.88%, F-Score 99.74%
+  - AF Detection: Sensitivity 96.88%, Precision 98.87%, F-Score 97.86%
+  - PVC Detection: Sensitivity 92.67%, Precision 95.58%, F-Score 94.1%
+  - VT/VF Detection: Sensitivity 97.90%, Precision 95.77%, F-Score 96.82%
+- Patents: 1 Pending, 1 Issued
+- Awards: Runner-up at Physionet/Computing in Cardiology Challenge
+- ECG Analyzer: https://autoecg.utdallas.edu/
+
+REAL-TIME ASSESSMENT OF SLEEP APNEA AND SLEEP QUALITY:
 - Patent: US 2013/0046151 A1 Issued
 
-This next section is about Lakshman Tamil:
-
-EDUCATION
-Ph.D. Electrical Engineering, University of Rhode Island, 1989 M.S. Mathematics, University of Rhode Island, 1989 M. Tech. Microwave and Optical Communications Engineering, Indian Institute of Technology, Karagpur, 1983 B.E. Electronics and Communications Engineering, Madurai Kamaraj University, 1981
-
-OVERVIEW
-Dr. Lakshman Tamil is a tenured full Professor of Electrical and Computer Engineering and the director of Quality of Life Technology Laboratory at the University of Texas at Dallas. He is an academic with both corporate and entrepreneurial experience. Tamil pioneered the design and development of multi-terabit switches using photonic-electronic hybrid switching, multi-beam multi-directional antenna for wireless applications including 5G, and optical devices using inverse scattering techniques. He is also an innovator in the design of Artificial Intelligence based software devices for disease monitoring and management, and telemedicine. Previously, Dr. Tamil was the Founder, CEO and CTO of Yotta Networks Inc., a venture capital supported company that designed and marketed terabit-switching platforms. He also served as a Senior Manager directing research on advanced optical networks at Alcatel’s (now Nokia) Corporate Research Center, Richardson, TX. Here, he led a team of international scientists to design and demonstrate the first all-optical router. He was recognized with an award by Alcatel for his technical leadership. His U.S. patent 6,169,910 was the core asset of the Spike Technologies, Inc. that developed and marketed the early MMDS system, a precursor to the modern Wi-Max. He has been a technology consultant to Raytheon Co., Electrospace Systems Inc., Spike Technologies, Inc., Lighthouse Capital Partners and McKool Smith LLP. Over the course of his career, he has contributed to more than 160 research publications and 23 patents and has directed 24 doctoral dissertations. He has also served as an associate editor for Radio Science (Journal Sponsored by the American Geophysical Union and the International Radio Science Union) and as a member of the editorial boards of Optical Fiber Technology: Material, Devices and Systems (Elsevier) and Optical Network Magazine (Kluwer Academic Publishers). Some of his latest research contributions are machine learning algorithms for automated detection of breast cancer from mammogram images (automammogram.utdallas.edu), heart arrhythmia detection from wearable ECG devices (autoecg.utdallas.edu), sleep apnea detection from ECG and oximetry, asthma and COPD vulnerability prediction and oral cancer detection from smartphone camera images. Dr. Tamil is the recipient of the best teaching award of the ECE department in 2022. Dr. Tamil is an elected Fellow of the National Academy of Inventors (NAI), the OPTICA (Optical Society of America) and the Electromagnetics Academy, an elected member of the International Radio Science Union (URSI) commission B and D, a Senior Member of the Institute of Electrical and Electronics Engineers (IEEE), and a member of the American Association for the Advancement of Science (AAAS). Dr. Tamil is also serving now as the President and CEO of HygeiaTel, Inc. a start-up that commercializes some of the innovations of the Quality of Life Technology Laboratory, and as a member of the governing and advisory boards of a few companies.
-
-RESEARCH INTERESTS
-Quantum Machine Learning,
-Telemedicine,
-Internet of Things (IoT),
-Machine learning and artificial intelligence applications to Medicine and Healthcare.
+ABOUT LAKSHMAN TAMIL:
+- Position: Professor of Electrical and Computer Engineering, Director of Quality of Life Technology Laboratory, University of Texas at Dallas
+- Education: Ph.D. Electrical Engineering, M.S. Mathematics, M. Tech. Microwave and Optical Communications, B.E. Electronics and Communications Engineering
+- Experience: Corporate, Entrepreneurial, Academic
+- Contributions: Over 160 research publications, 23 patents, 24 doctoral dissertations
+- Innovations: AI for disease monitoring, telemedicine
+- Career Highlights: Founder of Yotta Networks, Senior Manager at Alcatel, Consultant to various companies
+- Recognition: Best teaching award, Fellow of NAI, OPTICA, Electromagnetics Academy, Senior Member of IEEE
+- Current Roles: President and CEO of HygeiaTel, Inc., Member of Governing and Advisory Boards
+- Research Interests: Quantum Machine Learning, Telemedicine, IoT, AI applications to Medicine and Healthcare.

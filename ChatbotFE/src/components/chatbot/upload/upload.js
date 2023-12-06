@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useRef } from "react";
 import "./upload.css";
+import UploadedItem from "./uploaded-item/uploaded-item";
 
 export default function Upload() {
   const [dragOver, setDragOver] = useState(false);
@@ -80,6 +81,7 @@ export default function Upload() {
         <p>file must be .txt or .pdf</p>
         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       </div>
+      <UploadedItem filename="QoLt.txt" />
     </div>
   );
 }
