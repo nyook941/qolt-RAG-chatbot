@@ -65,8 +65,8 @@ export default function Upload() {
     })
       .then((response) => response.text())
       .then((data) => {
-        dispatch(addFile());
-        console.log(data);
+        console.log("data", data);
+        dispatch(addFile(file.name));
       })
       .catch((error) => console.error("Error:", error));
   };

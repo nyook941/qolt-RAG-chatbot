@@ -56,6 +56,11 @@ export const chatSlice = createSlice({
     addFile: (state, action) => {
       state.uploadedFiles.push(action.payload);
     },
+    removeFile: (state, action) => {
+      state.uploadedFiles = state.uploadedFiles.filter(
+        (file) => file !== action.payload
+      );
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -82,6 +87,7 @@ export const {
   setView,
   setFile,
   addFile,
+  removeFile,
 } = chatSlice.actions;
 
 export default chatSlice.reducer;

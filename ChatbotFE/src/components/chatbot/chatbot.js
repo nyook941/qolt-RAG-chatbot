@@ -17,9 +17,9 @@ export default function Chatbot({ ws }) {
   const { view } = useSelector((state) => state.chat);
 
   useEffect(() => {
-    //   if (!loggedIn) {
-    //     navigate("/");
-    //   }
+    if (!loggedIn) {
+      navigate("/");
+    }
     dispatch(fetchUploadedFiles());
   }, []);
 

@@ -13,6 +13,10 @@ import {
   setLoginError,
 } from "./redux/slices/auth-slice";
 import Chatbot from "./components/chatbot/chatbot";
+import {
+  setIsTranscribeLoading,
+  setTranscribeWebsocket,
+} from "./redux/slices/chat-slice";
 
 export default function App() {
   const [ws, setWs] = useState(null);
@@ -34,6 +38,8 @@ export default function App() {
               case "createUser":
                 handleCreateUser(message);
                 break;
+              case "transcription":
+                handleTranscription(message);
               default:
             }
           } catch (error) {
@@ -68,6 +74,11 @@ export default function App() {
       dispatch(setLoggedIn(true));
       dispatch(setLoginError(false));
     }
+  };
+
+  const handleTranscription = (message) => {
+    dispatch(setTranscribeWebsocket(message.body.message));
+    dispatch(setIsTranscribeLoading(false));
   };
 
   return (

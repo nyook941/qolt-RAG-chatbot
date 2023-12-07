@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, HTTPException
 import shutil
 import os
 from pydantic import BaseModel
@@ -91,7 +91,7 @@ async def upload_file(file: UploadFile = File(...)):
     file_location = f"./docs/{file.filename}"
     with open(file_location, "wb+") as file_object:
         shutil.copyfileobj(file.file, file_object)
-
+    index = construct_index()
     return {"info": f"file '{file.filename}' saved at '{file_location}'"}
 
 
@@ -101,6 +101,17 @@ def files_endpoint():
     file_list = os.listdir(folder_path)
     return file_list
 
+@app.delete("/api/remove-file/{filename}")
+def remove_file(filename: str):
+    file_path = f"./docs/{filename}"
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail="File not found")
+    try:
+        os.remove(file_path)
+        index = construct_index()
+        return {"message": f"File '{filename}' successfully deleted"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
 
 if __name__ == "__main__":
     index = construct_index()
