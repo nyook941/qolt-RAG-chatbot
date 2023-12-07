@@ -4,10 +4,15 @@ import "./uploaded-item.css";
 import { GrDocumentTxt, GrDocumentPdf } from "react-icons/gr";
 
 export default function UploadedItem({ filename }) {
-  const fileExtension = filename.substring(
-    filename.length - 3,
-    filename.length
-  );
+  const getFileExtension = (filename) => {
+    const lastDotIndex = filename.lastIndexOf(".");
+
+    if (lastDotIndex === -1 || lastDotIndex === 0) return "";
+
+    return filename.substring(lastDotIndex + 1);
+  };
+
+  const fileExtension = getFileExtension(filename);
 
   return (
     <div className="file-item-container">

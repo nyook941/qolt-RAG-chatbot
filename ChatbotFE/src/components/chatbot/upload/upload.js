@@ -1,12 +1,15 @@
 import React, { useState, useCallback, useRef } from "react";
 import "./upload.css";
 import UploadedItem from "./uploaded-item/uploaded-item";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addFile } from "../../../redux/slices/chat-slice";
 
 export default function Upload() {
   const [dragOver, setDragOver] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const fileInputRef = useRef(null);
+
+  const dispatch = useDispatch();
 
   const { uploadedFiles } = useSelector((state) => state.chat);
   console.log(uploadedFiles);
@@ -53,6 +56,7 @@ export default function Upload() {
 
   const uploadFile = (file) => {
     const formData = new FormData();
+    console.log(file);
     formData.append("file", file);
 
     fetch("http://localhost:8000/api/upload", {
@@ -61,6 +65,7 @@ export default function Upload() {
     })
       .then((response) => response.text())
       .then((data) => {
+        dispatch(addFile());
         console.log(data);
       })
       .catch((error) => console.error("Error:", error));

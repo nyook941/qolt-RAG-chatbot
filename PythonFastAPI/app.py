@@ -29,8 +29,7 @@ app.add_middleware(
 )
 # http://localhost:3000
 # Set OpenAI API Key
-os.environ["OPENAI_API_KEY"] = "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"
-
+os.environ["OPENAI_API_KEY"] = "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"
 
 
 def construct_index():
@@ -83,13 +82,15 @@ def chatbot_endpoint(input_data: InputText):
         print("Exception:", e)  # Log any exceptions
         return {"response": "An error occurred during processing."}
 
+
 @app.post("/api/upload")
 async def upload_file(file: UploadFile = File(...)):
     file_location = f"./docs/{file.filename}"
     with open(file_location, "wb+") as file_object:
         shutil.copyfileobj(file.file, file_object)
-    
+
     return {"info": f"file '{file.filename}' saved at '{file_location}'"}
+
 
 @app.get("/api/files")
 def files_endpoint():
