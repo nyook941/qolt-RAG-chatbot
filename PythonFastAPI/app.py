@@ -15,25 +15,28 @@ from langchain.chat_models import ChatOpenAI
 import os
 import boto3
 import glob
+from dotenv import load_dotenv
 
 # Initialize FastAPI
 app = FastAPI()
 
+load_dotenv()
+
 # Configure CORS to allow requests from your web application's domain
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Replace with your web app's domain
+    allow_origins=["*"],  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-# http://localhost:3000
-# Set OpenAI API Key
-os.environ["OPENAI_API_KEY"] = "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"
+
+api_key = os.environ.get("OPENAI_API_KEY")
+if not api_key:
+    raise ValueError("OPENAI_API_KEY is not set")
 
 
 def construct_index():
-    # Your existing code for constructing the index
     max_input_size = 4096
     num_outputs = 512
     max_chunk_overlap = 20
