@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./uploaded-item.css";
-import {
-  GrDocumentTxt,
-  GrDocumentPdf,
-  GrCheckmark,
-  GrClose,
-} from "react-icons/gr";
+import { GrDocumentTxt, GrDocumentPdf } from "react-icons/gr";
 
-export default function UploadedItem({ filename, status }) {
+export default function UploadedItem({ filename }) {
   const fileExtension = filename.substring(
     filename.length - 3,
     filename.length

@@ -1,11 +1,15 @@
 import React, { useState, useCallback, useRef } from "react";
 import "./upload.css";
 import UploadedItem from "./uploaded-item/uploaded-item";
+import { useSelector } from "react-redux";
 
 export default function Upload() {
   const [dragOver, setDragOver] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const fileInputRef = useRef(null);
+
+  const { uploadedFiles } = useSelector((state) => state.chat);
+  console.log(uploadedFiles);
 
   const handleDragOver = useCallback((e) => {
     e.preventDefault();
@@ -51,13 +55,14 @@ export default function Upload() {
     const formData = new FormData();
     formData.append("file", file);
 
-    // Adjust the URL to your FastAPI upload endpoint
     fetch("http://localhost:8000/api/upload", {
       method: "POST",
       body: formData,
     })
       .then((response) => response.text())
-      .then((data) => console.log(data))
+      .then((data) => {
+        console.log(data);
+      })
       .catch((error) => console.error("Error:", error));
   };
 
@@ -81,7 +86,9 @@ export default function Upload() {
         <p>file must be .txt or .pdf</p>
         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       </div>
-      <UploadedItem filename="QoLt.txt" />
+      {uploadedFiles.map((filename) => (
+        <UploadedItem key={filename} filename={filename} />
+      ))}
     </div>
   );
 }
