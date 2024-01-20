@@ -6,7 +6,7 @@ def lambda_handler(event, context):
         chain = Chain().constructChain()
         return {
             "statusCode": 200,
-            "body": {"response: Vector store created and uploaded to S3"}
+            "body": {"response: Vector store created and uploaded on EC2"}
         }
     except Exception as e:
         print("Exception:", e)
