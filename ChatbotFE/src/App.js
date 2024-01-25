@@ -85,7 +85,7 @@ export default function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" element={<Auth />} />
+          <Route path="/" element={<Chatbot />} />
           <Route path="/signup" element={<SignUp ws={ws} />} />
           <Route path="/login" element={<Login ws={ws} />} />
           <Route path="/forgot" element={<ForgotPassword />} />
