@@ -68,10 +68,10 @@ export const chatSlice = createSlice({
       state.uploadedFiles = action.payload;
     },
     addFile: (state, action) => {
-      state.uploadedFiles.push(action.payload);
+      state.uploadedFiles.files.push(action.payload);
     },
     removeFile: (state, action) => {
-      state.uploadedFiles = state.uploadedFiles.filter(
+      state.uploadedFiles.files = state.uploadedFiles.files.filter(
         (file) => file !== action.payload
       );
     },

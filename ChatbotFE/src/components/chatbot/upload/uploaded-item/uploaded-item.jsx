@@ -17,7 +17,8 @@ export default function UploadedItem({ filename }) {
   const fileExtension = getFileExtension(filename);
 
   const handleDelete = () => {
-    const apiUrl = `http://localhost:8000/api/remove-file/${filename}`;
+    const apiUrl = `https://k5jhm1siei.execute-api.us-east-2.amazonaws.com/default/documents/${filename}`;
+    console.log(apiUrl);
 
     fetch(apiUrl, { method: "DELETE" })
       .then((response) => {
