@@ -16,12 +16,13 @@ export default function Chatbot({ ws }) {
   const { loggedIn } = useSelector((state) => state.auth);
   const { view } = useSelector((state) => state.chat);
 
-  // useEffect(() => {
-  //   if (!loggedIn) {
-  //     navigate("/");
-  //   }
-  //   dispatch(fetchUploadedFiles());
-  // }, []);
+  useEffect(() => {
+    //   if (!loggedIn) {
+    //     navigate("/");
+    //   }
+    console.log("fetching files");
+    dispatch(fetchUploadedFiles());
+  }, []);
 
   return (
     <div className="App">

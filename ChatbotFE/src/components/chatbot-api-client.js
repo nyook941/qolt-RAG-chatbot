@@ -9,7 +9,19 @@ class ChatbotAPIClient {
       body: JSON.stringify({ question: rawQuestionStr }),
     };
     url = this.baseurl + "chatbotAPI";
-    this.makeRequest(url, requestOptions);
+    response = this.makeRequest(url, requestOptions);
+    return response.output_text;
+  }
+
+  viewFiles() {
+    requestOptions = {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    };
+    url = this.baseurl + "documents";
+    console.log(url);
+    response = this.makeRequest(url, requestOptions);
+    return response.json();
   }
 
   async makeRequest(url, requestOptions) {

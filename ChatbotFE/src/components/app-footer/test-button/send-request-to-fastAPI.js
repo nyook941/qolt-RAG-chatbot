@@ -1,31 +1,38 @@
-// fastApiService.js
 const sendRequestToFastAPI = async (inputText, setChatbotResponse) => {
-    const url = "http://localhost:8000/api/chatbot"; // FastAPI endpoint URL
-  
-    const requestData = {
-      text: inputText,
-    };
-  
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      });
-  
-      if (response.ok) {
-        const data = await response.json();
-        setChatbotResponse(data.response);
-      } else {
-        throw new Error("Request failed with status " + response.status);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      setChatbotResponse("An error occurred while sending the request.");
-    }
+  const url =
+    "https://k5jhm1siei.execute-api.us-east-2.amazonaws.com/default/chatbotAPI";
+
+  const requestData = {
+    question: inputText,
   };
-  
-  export default sendRequestToFastAPI;
-  
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log("Received data:", data);
+
+      if (data && data.output_text) {
+        console.log("Output text:", data.output_text);
+        setChatbotResponse(data.output_text);
+      } else {
+        console.error("Output text not found in the response");
+        setChatbotResponse("Output text not found in the response.");
+      }
+    } else {
+      throw new Error("Request failed with status " + response.status);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    setChatbotResponse("An error occurred while sending the request.");
+  }
+};
+
+export default sendRequestToFastAPI;

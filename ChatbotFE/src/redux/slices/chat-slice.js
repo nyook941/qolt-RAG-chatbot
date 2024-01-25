@@ -16,9 +16,23 @@ const initialState = {
 export const fetchUploadedFiles = createAsyncThunk(
   "chat/fetchUploadedFiles",
   async () => {
-    const response = await fetch("http://localhost:8000/api/files");
-    const files = await response.json();
-    return files;
+    const url =
+      "https://k5jhm1siei.execute-api.us-east-2.amazonaws.com/default/documents";
+    const requestOptions = {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    };
+
+    try {
+      const response = await fetch(url, requestOptions);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const files = await response.json();
+      return files;
+    } catch (error) {
+      console.error("Error fetching files:", error);
+    }
   }
 );
 

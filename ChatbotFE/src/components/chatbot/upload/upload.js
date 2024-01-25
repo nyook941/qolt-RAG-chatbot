@@ -58,9 +58,17 @@ export default function Upload() {
     const formData = new FormData();
     console.log(file);
     formData.append("file", file);
+    const url =
+      "https://k5jhm1siei.execute-api.us-east-2.amazonaws.com/default/documents?file-name=" +
+      file.name;
 
-    fetch("http://localhost:8000/api/upload", {
+    console.log(url);
+
+    fetch(url, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/txt",
+      },
       body: formData,
     })
       .then((response) => response.text())
@@ -91,7 +99,7 @@ export default function Upload() {
         <p>file must be .txt or .pdf</p>
         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       </div>
-      {uploadedFiles.map((filename) => (
+      {uploadedFiles.files.map((filename) => (
         <UploadedItem key={filename} filename={filename} />
       ))}
     </div>
