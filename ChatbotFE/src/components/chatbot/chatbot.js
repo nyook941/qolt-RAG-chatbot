@@ -20,16 +20,8 @@ export default function Chatbot({ ws }) {
     //   if (!loggedIn) {
     //     navigate("/");
     //   }
-    console.log("fetching files");
     dispatch(fetchUploadedFiles());
   }, []);
-  useEffect(() => {
-    if(ws) {
-      console.log("ws ready")
-    } else {
-      console.log("ws null")
-    }
-  }, [ws]);
 
   return (
     <div className="App">

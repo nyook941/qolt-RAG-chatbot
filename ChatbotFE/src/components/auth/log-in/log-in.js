@@ -26,7 +26,6 @@ export default function Login({ ws }) {
       },
     };
     if (!empty) {
-      console.log("Sending:", message);
       ws.send(JSON.stringify(message));
       dispatch(setAttemptingLogin(true));
     }

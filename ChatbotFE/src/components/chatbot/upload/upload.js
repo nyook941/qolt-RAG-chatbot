@@ -12,7 +12,6 @@ export default function Upload() {
   const dispatch = useDispatch();
 
   const { uploadedFiles } = useSelector((state) => state.chat);
-  console.log(uploadedFiles);
 
   const handleDragOver = useCallback((e) => {
     e.preventDefault();
@@ -56,13 +55,10 @@ export default function Upload() {
 
   const uploadFile = (file) => {
     const formData = new FormData();
-    console.log(file);
     formData.append("file", file);
     const url =
       "https://k5jhm1siei.execute-api.us-east-2.amazonaws.com/default/documents?file-name=" +
       file.name;
-
-    console.log(url);
 
     fetch(url, {
       method: "POST",
@@ -73,7 +69,6 @@ export default function Upload() {
     })
       .then((response) => response.text())
       .then((data) => {
-        console.log("data", data);
         dispatch(addFile(file.name));
       })
       .catch((error) => console.error("Error:", error));

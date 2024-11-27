@@ -29,8 +29,6 @@ export default function App() {
         onmessage: (e) => {
           try {
             const message = JSON.parse(e.data);
-            console.log("Received:", message);
-            console.log(message.action);
             switch (message.action) {
               case "loginUser":
                 handleUserLogin(message);
@@ -56,12 +54,6 @@ export default function App() {
     };
   }, []);
 
-  useEffect(() => {
-    if (ws) {
-      console.log("Updated ws:", ws);
-    }
-  }, [ws]);
-
   const handleUserLogin = (message) => {
     dispatch(setAttemptingLogin(false));
     if (message.statusCode === 200) {
@@ -76,14 +68,12 @@ export default function App() {
   const handleCreateUser = (message) => {
     dispatch(setAttemptingLogin(false));
     if (message.statusCode === 200) {
-      console.log("create user success");
       dispatch(setLoggedIn(true));
       dispatch(setLoginError(false));
     }
   };
 
   const handleTranscription = (message) => {
-    console.log(message);
     dispatch(setTranscribeWebsocket(message.body.message));
     dispatch(setIsTranscribeLoading(false));
   };

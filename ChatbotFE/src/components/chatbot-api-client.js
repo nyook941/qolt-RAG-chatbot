@@ -19,7 +19,6 @@ class ChatbotAPIClient {
       headers: { "Content-Type": "application/json" },
     };
     url = this.baseurl + "documents";
-    console.log(url);
     response = this.makeRequest(url, requestOptions);
     return response.json();
   }

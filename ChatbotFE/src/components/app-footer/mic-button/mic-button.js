@@ -5,6 +5,7 @@ import {
   setAudioBlobUrl,
   setIsMicBlocked,
   setIsRecording,
+  setIsRecordingSendPending,
 } from "../../../redux/slices/chat-slice";
 import MicRecorder from "mic-recorder-to-mp3";
 
@@ -24,12 +25,10 @@ export default function MicButton() {
     navigator.mediaDevices
       .getUserMedia({ audio: true })
       .then((stream) => {
-        console.log("Permission Granted");
         setAudioStream(stream);
         dispatch(setIsMicBlocked(false));
       })
       .catch(() => {
-        console.log("Permission Denied");
         dispatch(setIsMicBlocked(true));
       });
   }, []);
@@ -67,9 +66,7 @@ export default function MicButton() {
       setBtnDisabled(true);
       setTimeout(() => setBtnDisabled(false), 500);
       if (isMicBlocked) {
-        console.log("permission denied");
       } else {
-        console.log("starting recording");
         recorder
           .start()
           .then(() => {
@@ -85,15 +82,14 @@ export default function MicButton() {
       setBtnDisabled(true);
       setTimeout(() => setBtnDisabled(false), 500);
       if (isRecording) {
-        console.log("stopping recording");
         recorder
           .stop()
           .getMp3()
           .then(([buffer, blob]) => {
             const blobURL = URL.createObjectURL(blob);
             dispatch(setIsRecording(false));
+            dispatch(setIsRecordingSendPending(true));
             dispatch(setAudioBlobUrl(blobURL));
-            console.log(blobURL);
           })
           .catch((e) => console.log(e));
       }

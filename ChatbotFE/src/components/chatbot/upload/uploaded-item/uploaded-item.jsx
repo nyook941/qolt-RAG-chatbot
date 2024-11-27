@@ -18,7 +18,6 @@ export default function UploadedItem({ filename }) {
 
   const handleDelete = () => {
     const apiUrl = `https://k5jhm1siei.execute-api.us-east-2.amazonaws.com/default/documents/${filename}`;
-    console.log(apiUrl);
 
     fetch(apiUrl, { method: "DELETE" })
       .then((response) => {
@@ -29,7 +28,6 @@ export default function UploadedItem({ filename }) {
       })
       .then((data) => {
         dispatch(removeFile(filename));
-        console.log(data.message);
       })
       .catch((error) => {
         console.error("There was an error deleting the file:", error);

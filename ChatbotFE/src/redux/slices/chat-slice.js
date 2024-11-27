@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
   isRecording: false,
+  isRecordingSendPending: false,
   isMicBlocked: false,
   audioBlobUrl: "",
   isAudioLoading: false,
@@ -42,6 +43,9 @@ export const chatSlice = createSlice({
   reducers: {
     setIsRecording: (state, action) => {
       state.isRecording = action.payload;
+    },
+    setIsRecordingSendPending: (state, action) => {
+      state.isRecordingSendPending = action.payload;
     },
     setIsMicBlocked: (state, action) => {
       state.isMicBlocked = action.payload;
@@ -102,6 +106,7 @@ export const {
   setFile,
   addFile,
   removeFile,
+  setIsRecordingSendPending
 } = chatSlice.actions;
 
 export default chatSlice.reducer;

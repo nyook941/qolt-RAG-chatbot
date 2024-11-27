@@ -17,10 +17,8 @@ const sendRequestToFastAPI = async (inputText, setChatbotResponse) => {
 
     if (response.ok) {
       const data = await response.json();
-      console.log("Received data:", data);
 
       if (data && data.output_text) {
-        console.log("Output text:", data.output_text);
         setChatbotResponse(data.output_text);
       } else {
         console.error("Output text not found in the response");

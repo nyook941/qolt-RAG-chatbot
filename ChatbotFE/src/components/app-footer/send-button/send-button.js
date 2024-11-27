@@ -1,9 +1,10 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import "./send-button.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
   addMessage,
   setAudioBlobUrl,
+  setIsRecordingSendPending,
   setIsResponseLoading,
   setIsTranscribeLoading,
   setTranscribeWebsocket,
@@ -15,7 +16,7 @@ import sendRequestToFastAPI from "../test-button/send-request-to-fastAPI";
 
 export default function SendButton({ ws, text, setText }) {
   const dispatch = useDispatch();
-  const { audioBlobUrl, transcribeWebsocket, isRecording } = useSelector(
+  const { audioBlobUrl, transcribeWebsocket, isRecording, isRecordingSendPending } = useSelector(
     (state) => state.chat
   );
 
@@ -25,7 +26,7 @@ export default function SendButton({ ws, text, setText }) {
   });
 
   const sendAudio = useCallback(async () => {
-    console.log("attempting to send to s3");
+    dispatch(setIsRecordingSendPending(false))
     dispatch(setIsTranscribeLoading(true));
     const fileName = `recording-${Date.now()}.mp3`;
     try {
@@ -40,7 +41,6 @@ export default function SendButton({ ws, text, setText }) {
 
       if (response.status === 200) {
         const audioBlob = Buffer.from(response.data);
-        console.log("retrieved audio");
 
         const params = {
           Bucket: "pre-transcribed-mp3-bucket",
@@ -51,8 +51,6 @@ export default function SendButton({ ws, text, setText }) {
         s3.upload(params, (err, data) => {
           if (err) {
             console.error("Error uploading to S3:", err);
-          } else {
-            console.log("File uploaded to S3:", data.Location);
           }
         });
       } else {
@@ -62,25 +60,21 @@ export default function SendButton({ ws, text, setText }) {
       console.error("Error:", error);
     } finally {
       dispatch(setAudioBlobUrl(""));
-      console.log(ws);
       if (ws) {
         const payload = {
           action: "startTranscription",
           message: fileName,
         };
         ws.json(payload);
-        console.log("Sent:", payload);
       }
     }
   }, [audioBlobUrl, dispatch, s3]);
 
   const sendToFastAPI = (input) => {
-    console.log("send to fast api")
     dispatch(addMessage({ messageType: "request", memo: input }));
     dispatch(setIsResponseLoading(true));
     setText("");
     const setChatbotResponse = (response) => {
-      console.log("Chatbot Response:", response);
       dispatch(addMessage({ messageType: "response", memo: response }));
       dispatch(setIsResponseLoading(false));
     };
@@ -109,11 +103,13 @@ export default function SendButton({ ws, text, setText }) {
     }
   }, [transcribeWebsocket]);
 
+  const disableButton = isRecording || (text === "" && !isRecordingSendPending);
+
   return (
     <button
       className={audioBlobUrl !== "" ? "Send-Audio" : "Button"}
       onClick={audioBlobUrl !== "" ? sendAudio : () => sendToFastAPI(text.trim())}
-      disabled={isRecording || text === ""}
+      disabled={disableButton}
     >
       <i
         className={
