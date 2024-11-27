@@ -15,7 +15,7 @@ import sendRequestToFastAPI from "../test-button/send-request-to-fastAPI";
 
 export default function SendButton({ ws, text, setText }) {
   const dispatch = useDispatch();
-  const { audioBlobUrl, transcribeWebsocket } = useSelector(
+  const { audioBlobUrl, transcribeWebsocket, isRecording } = useSelector(
     (state) => state.chat
   );
 
@@ -62,6 +62,7 @@ export default function SendButton({ ws, text, setText }) {
       console.error("Error:", error);
     } finally {
       dispatch(setAudioBlobUrl(""));
+      console.log(ws);
       if (ws) {
         const payload = {
           action: "startTranscription",
@@ -74,6 +75,7 @@ export default function SendButton({ ws, text, setText }) {
   }, [audioBlobUrl, dispatch, s3]);
 
   const sendToFastAPI = (input) => {
+    console.log("send to fast api")
     dispatch(addMessage({ messageType: "request", memo: input }));
     dispatch(setIsResponseLoading(true));
     setText("");
@@ -110,7 +112,8 @@ export default function SendButton({ ws, text, setText }) {
   return (
     <button
       className={audioBlobUrl !== "" ? "Send-Audio" : "Button"}
-      onClick={audioBlobUrl !== "" ? sendAudio : sendToFastAPI}
+      onClick={audioBlobUrl !== "" ? sendAudio : () => sendToFastAPI(text.trim())}
+      disabled={isRecording || text === ""}
     >
       <i
         className={

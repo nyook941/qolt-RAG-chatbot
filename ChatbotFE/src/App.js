@@ -56,6 +56,12 @@ export default function App() {
     };
   }, []);
 
+  useEffect(() => {
+    if (ws) {
+      console.log("Updated ws:", ws);
+    }
+  }, [ws]);
+
   const handleUserLogin = (message) => {
     dispatch(setAttemptingLogin(false));
     if (message.statusCode === 200) {
@@ -77,6 +83,7 @@ export default function App() {
   };
 
   const handleTranscription = (message) => {
+    console.log(message);
     dispatch(setTranscribeWebsocket(message.body.message));
     dispatch(setIsTranscribeLoading(false));
   };
@@ -85,7 +92,7 @@ export default function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" element={<Chatbot />} />
+          <Route path="/" element={<Chatbot ws={ws}/>} />
           <Route path="/signup" element={<SignUp ws={ws} />} />
           <Route path="/login" element={<Login ws={ws} />} />
           <Route path="/forgot" element={<ForgotPassword />} />
