@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import "./drawer.css";
 import { FaFileUpload } from "react-icons/fa";
+import { IoChatboxEllipsesSharp } from "react-icons/io5";
+import { FiMenu } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { setView } from "../../../redux/slices/chat-slice";
-import { IoChatboxEllipsesSharp } from "react-icons/io5";
 
 export default function Drawer() {
+  const [collapsed, setCollapsed] = useState(false);
   const dispatch = useDispatch();
   const { view } = useSelector((state) => state.chat);
+
+  const toggleDrawer = () => {
+    setCollapsed(!collapsed);
+  };
 
   const handleUploadClick = () => {
     dispatch(setView("upload"));
@@ -18,8 +24,10 @@ export default function Drawer() {
   };
 
   return (
-    <div className="Drawer">
-      <img src={"/header.jpg"} className="Qolt-logo" />
+    <div className={`Drawer ${collapsed ? "Drawer-Collapsed" : ""}`}>
+      <button className="Toggle-Button" onClick={toggleDrawer}>
+        <FiMenu />
+      </button>
       <button
         className={view === "chat" ? "Upload-Button-Selected" : "Upload-Button"}
         onClick={handleChatClick}
@@ -27,7 +35,7 @@ export default function Drawer() {
         <span className="Button-Icon">
           <IoChatboxEllipsesSharp />
         </span>
-        Chatbot
+        {!collapsed && "Chatbot"}
       </button>
       <button
         className={
@@ -38,7 +46,7 @@ export default function Drawer() {
         <span className="Button-Icon">
           <FaFileUpload />
         </span>
-        Upload Knowledge Base
+        {!collapsed && "Upload Knowledge Base"}
       </button>
     </div>
   );

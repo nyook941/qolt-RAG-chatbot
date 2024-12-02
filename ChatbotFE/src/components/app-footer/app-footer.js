@@ -27,7 +27,7 @@ export default function AppFooter({ ws }) {
           <textarea
             rows={1}
             type="text"
-            placeholder="Ask anything about QoLT..."
+            placeholder="Ask a question..."
             value={text}
             onChange={onChange}
             onKeyPress={(e) => {

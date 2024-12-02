@@ -1,18 +1,29 @@
 .Drawer {
   display: flex;
   flex-direction: column;
-  width: 350px;
+  width: 235px;
   background-color: black;
   padding: 16px;
   align-items: flex-start;
   justify-content: flex-start;
+  transition: width 0.3s ease;
 }
 
-.Qolt-logo {
-  width: 100%;
+.Drawer-Collapsed {
+  width: 60px;
 }
 
-.Upload-Button {
+.Toggle-Button {
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: 20px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.Upload-Button,
+.Upload-Button-Selected {
   margin-top: 10px;
   background-color: transparent;
   color: white;
@@ -37,17 +48,20 @@
 }
 
 .Upload-Button-Selected {
-  margin-top: 10px;
   background-color: #313131;
-  color: white;
-  border-width: 0px;
-  font-size: 16px;
-  font-weight: 700;
+}
+
+.Drawer-Collapsed .Button-Icon {
+  padding-right: 0;
+}
+
+.Drawer-Collapsed .Upload-Button span {
   display: flex;
-  flex-direction: row;
-  transition: background-color 0.3s ease;
+  justify-content: center;
   width: 100%;
-  padding: 10px;
-  border-radius: 10px;
-  align-items: center;
+}
+
+.Drawer-Collapsed .Upload-Button,
+.Drawer-Collapsed .Upload-Button-Selected {
+  justify-content: center;
 }

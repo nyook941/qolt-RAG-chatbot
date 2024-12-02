@@ -16,9 +16,7 @@ export default function Auth() {
   return (
     <div className="Login-screen">
       <img src={"/utdallas-campus.jpg"} className="Utd-background" />
-      <header className="Logo">
-        <img src={"/header.jpg"} />
-      </header>
+      <header className="Logo">{/* <img src={"/header.jpg"} /> */}</header>
       <header className="Title-container">
         Learn about the Quality of Life Technology Lab
         <header className="Auth-button-container">
