@@ -20,6 +20,14 @@ export default function MainBody() {
 
   return (
     <div className="Main-body" ref={divRef}>
+      {/* Display instructional message if no messages exist */}
+      {messages.length === 0 && (
+        <div className="instruction-message">
+          Welcome! Please upload a PDF or text file containing the information
+          you want to learn. Then, ask any questions you have.
+        </div>
+      )}
+      {/* Render messages */}
       {messages.map((message, index) => {
         if (message.messageType === "request") {
           return <Request key={index} message={message.memo} />;
@@ -29,6 +37,7 @@ export default function MainBody() {
         }
         return null;
       })}
+      {/* Render loading indicators */}
       {isResponseLoading && <LoadingResponse />}
       {isTranscribeLoading && <LoadingRequest />}
     </div>

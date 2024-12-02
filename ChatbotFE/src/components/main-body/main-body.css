@@ -1,12 +1,37 @@
 .Main-body {
   background-color: #282c34;
+  display: flex;
   flex-direction: column;
   font-size: calc(10px + 2vmin);
   color: white;
   flex: 1;
   overflow-y: auto;
+  padding: 16px;
 }
 
 .Main-body::-webkit-scrollbar {
   display: none;
+}
+
+.instruction-message {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 1.2rem;
+  color: #bbb;
+}
+
+.message {
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #444;
+  color: #fff;
+}
+
+.message.request {
+  text-align: left;
+}
+
+.message.response {
+  text-align: right;
 }

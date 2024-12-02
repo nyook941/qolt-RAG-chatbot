@@ -1,7 +1,7 @@
 .Drawer {
   display: flex;
   flex-direction: column;
-  width: 235px;
+  width: 250px;
   background-color: black;
   padding: 16px;
   align-items: flex-start;
@@ -13,34 +13,26 @@
   width: 60px;
 }
 
-.Toggle-Button {
-  background-color: transparent;
-  color: white;
-  border: none;
-  font-size: 20px;
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-
-.Upload-Button,
-.Upload-Button-Selected {
+.Drawer-Button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   margin-top: 10px;
   background-color: transparent;
   color: white;
-  border-width: 0px;
+  border: none;
   font-size: 16px;
   font-weight: 700;
-  display: flex;
-  flex-direction: row;
-  transition: background-color 0.3s ease;
   width: 100%;
   padding: 10px;
   border-radius: 10px;
-  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .Button-Icon {
   padding-right: 10px;
+  font-size: 20px;
 }
 
 .Upload-Button:hover {
@@ -51,17 +43,26 @@
   background-color: #313131;
 }
 
+.Toggle-Button {
+  margin-top: 0;
+}
+
+.Qolt-logo {
+  height: 50px;
+  width: auto;
+  margin-left: 65px;
+}
+
 .Drawer-Collapsed .Button-Icon {
   padding-right: 0;
 }
 
-.Drawer-Collapsed .Upload-Button span {
+.Drawer-Collapsed .Drawer-Button {
+  justify-content: center;
+}
+
+.Drawer-Collapsed .Drawer-Button span {
   display: flex;
   justify-content: center;
   width: 100%;
-}
-
-.Drawer-Collapsed .Upload-Button,
-.Drawer-Collapsed .Upload-Button-Selected {
-  justify-content: center;
 }

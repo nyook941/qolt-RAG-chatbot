@@ -25,11 +25,18 @@ export default function Drawer() {
 
   return (
     <div className={`Drawer ${collapsed ? "Drawer-Collapsed" : ""}`}>
-      <button className="Toggle-Button" onClick={toggleDrawer}>
-        <FiMenu />
+      <button className="Drawer-Button Toggle-Button" onClick={toggleDrawer}>
+        <span className="Button-Icon">
+          <FiMenu />
+        </span>
+        {!collapsed && (
+          <img src={"/utd-logo.png"} className="Qolt-logo" alt="Logo" />
+        )}
       </button>
       <button
-        className={view === "chat" ? "Upload-Button-Selected" : "Upload-Button"}
+        className={`Drawer-Button ${
+          view === "chat" ? "Upload-Button-Selected" : "Upload-Button"
+        }`}
         onClick={handleChatClick}
       >
         <span className="Button-Icon">
@@ -38,9 +45,9 @@ export default function Drawer() {
         {!collapsed && "Chatbot"}
       </button>
       <button
-        className={
+        className={`Drawer-Button ${
           view === "upload" ? "Upload-Button-Selected" : "Upload-Button"
-        }
+        }`}
         onClick={handleUploadClick}
       >
         <span className="Button-Icon">
