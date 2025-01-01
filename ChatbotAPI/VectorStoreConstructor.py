@@ -14,7 +14,7 @@ class Chain:
         self.vectordb = None
 
     def load(self):
-        loader = DirectoryLoader('./docs', glob="**/*.txt")
+        loader = DirectoryLoader('docs', glob="**/*.txt")
         self.documents = loader.load()
         print("\033[32mINFO:\033[0m\tdocument(s) loaded")
 
