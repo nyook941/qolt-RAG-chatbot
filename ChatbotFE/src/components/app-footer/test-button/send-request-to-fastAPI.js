@@ -6,11 +6,17 @@ const sendRequestToFastAPI = async (inputText, setChatbotResponse) => {
     question: inputText,
   };
 
+  const idToken = localStorage.getItem("idToken");
+  if (!idToken) {
+    throw new Error("No idToken found in localStorage. Please log in.");
+  }
+
   try {
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${idToken}`,
       },
       body: JSON.stringify(requestData),
     });

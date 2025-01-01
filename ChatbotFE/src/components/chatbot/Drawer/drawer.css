@@ -5,7 +5,7 @@
   background-color: black;
   padding: 16px;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: space-between;
 }
 
 .Qolt-logo {
@@ -50,4 +50,20 @@
   padding: 10px;
   border-radius: 10px;
   align-items: center;
+}
+
+.Logout {
+  color: rgb(139, 139, 139);
+  background-color: transparent;
+  border: none;
+  font-size: small;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.Logout:hover {
+  color: white;
+  background-color: rgb(95, 95, 95);
 }

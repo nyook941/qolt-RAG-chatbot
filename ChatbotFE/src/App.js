@@ -17,6 +17,8 @@ import {
   setIsTranscribeLoading,
   setTranscribeWebsocket,
 } from "./redux/slices/chat-slice";
+import Confirm from "./components/auth/confirm/confirm";
+import ProtectedRoute from "./components/auth/protected-route";
 
 export default function App() {
   const [ws, setWs] = useState(null);
@@ -82,11 +84,19 @@ export default function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" element={<Chatbot ws={ws}/>} />
-          <Route path="/signup" element={<SignUp ws={ws} />} />
-          <Route path="/login" element={<Login ws={ws} />} />
-          <Route path="/forgot" element={<ForgotPassword />} />
-          <Route path="/chatbot" element={<Chatbot ws={ws} />} />
+          <Route path="/" element={<Auth ws={ws} />} />
+          <Route path="/auth/signup" element={<SignUp />} />
+          <Route path="/auth/login" element={<Login />} />
+          <Route path="/auth/forgot" element={<ForgotPassword />} />
+          <Route path="/auth/confirm" element={<Confirm />} />
+          <Route
+            path="/chatbot"
+            element={
+              <ProtectedRoute>
+                <Chatbot ws={ws} />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </div>
     </Router>

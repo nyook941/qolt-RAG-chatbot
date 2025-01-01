@@ -5,13 +5,24 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
+import { AuthProvider } from "react-oidc-context";
+
+const cognitoAuthConfig = {
+  authority: "https://cognito-idp.us-east-2.amazonaws.com/us-east-2_HECKZxD4e",
+  client_id: "28khht07jt75ica6ij42u1h847",
+  redirect_uri: "https://d84l1y8p4kdic.cloudfront.net",
+  response_type: "code",
+  scope: "openid email",
+};
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <AuthProvider {...cognitoAuthConfig}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </AuthProvider>
   </React.StrictMode>
 );
 

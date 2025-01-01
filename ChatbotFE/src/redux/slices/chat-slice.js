@@ -19,9 +19,18 @@ export const fetchUploadedFiles = createAsyncThunk(
   async () => {
     const url =
       "https://k5jhm1siei.execute-api.us-east-2.amazonaws.com/default/documents";
+
+    const idToken = localStorage.getItem("idToken");
+    if (!idToken) {
+      throw new Error("No idToken found in localStorage. Please log in.");
+    }
+
     const requestOptions = {
       method: "GET",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${idToken}`,
+      },
     };
 
     try {
@@ -33,6 +42,7 @@ export const fetchUploadedFiles = createAsyncThunk(
       return files;
     } catch (error) {
       console.error("Error fetching files:", error);
+      throw error;
     }
   }
 );
@@ -106,7 +116,7 @@ export const {
   setFile,
   addFile,
   removeFile,
-  setIsRecordingSendPending
+  setIsRecordingSendPending,
 } = chatSlice.actions;
 
 export default chatSlice.reducer;

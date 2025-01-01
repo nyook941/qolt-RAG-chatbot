@@ -6,11 +6,11 @@ export default function Auth() {
   const navigate = useNavigate();
 
   const handleSignUpClick = () => {
-    navigate("/signup");
+    navigate("/auth/signup");
   };
 
   const handleLoginClick = () => {
-    navigate("/login");
+    navigate("/auth/login");
   };
 
   return (

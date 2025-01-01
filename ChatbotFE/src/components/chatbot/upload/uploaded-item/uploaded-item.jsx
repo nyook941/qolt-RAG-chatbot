@@ -19,7 +19,15 @@ export default function UploadedItem({ filename }) {
   const handleDelete = () => {
     const apiUrl = `https://k5jhm1siei.execute-api.us-east-2.amazonaws.com/default/documents/${filename}`;
 
-    fetch(apiUrl, { method: "DELETE" })
+    const idToken = localStorage.getItem("idToken");
+    if (!idToken) {
+      throw new Error("No idToken found in localStorage. Please log in.");
+    }
+
+    fetch(apiUrl, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${idToken}` },
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);

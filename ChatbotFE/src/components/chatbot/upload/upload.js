@@ -54,6 +54,10 @@ export default function Upload() {
   };
 
   const uploadFile = (file) => {
+    const idToken = localStorage.getItem("idToken");
+    if (!idToken) {
+      throw new Error("No idToken found in localStorage. Please log in.");
+    }
     const formData = new FormData();
     formData.append("file", file);
     const url =
@@ -64,6 +68,7 @@ export default function Upload() {
       method: "POST",
       headers: {
         "Content-Type": "application/txt",
+        Authorization: `Bearer ${idToken}`,
       },
       body: formData,
     })

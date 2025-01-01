@@ -1,62 +1,65 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  setAttemptingLogin,
-  setLoginEmail,
-  setLoginError,
-  setLoginPass,
-} from "../../../redux/slices/auth-slice";
+import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
+import { CognitoUserPool } from "amazon-cognito-identity-js";
 import "./log-in.css";
 
-export default function Login({ ws }) {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [empty, setEmpty] = useState(true);
+const poolData = {
+  UserPoolId: process.env.REACT_APP_USER_POOL_ID,
+  ClientId: process.env.REACT_APP_CLIENT_ID,
+};
 
-  const { loginEmail, loginPass, attemptingLogin, loginError, loggedIn } =
-    useSelector((state) => state.auth);
+const userPool = new CognitoUserPool(poolData);
+
+export default function Login() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [attemptingLogin, setAttemptingLogin] = useState(false);
 
   const handleContinueClick = () => {
-    const message = {
-      action: "loginUser",
-      message: {
-        username: loginEmail,
-        password: loginPass,
+    setAttemptingLogin(true);
+
+    const authDetails = new AuthenticationDetails({
+      Username: email,
+      Password: password,
+    });
+
+    const cognitoUser = new CognitoUser({
+      Username: email,
+      Pool: userPool,
+    });
+
+    cognitoUser.authenticateUser(authDetails, {
+      onSuccess: (result) => {
+        const idToken = result.getIdToken().getJwtToken();
+        const refreshToken = result.getRefreshToken().getToken();
+
+        localStorage.setItem("idToken", idToken);
+        localStorage.setItem("refreshToken", refreshToken);
+
+        setAttemptingLogin(false);
+        navigate("/chatbot");
       },
-    };
-    if (!empty) {
-      ws.send(JSON.stringify(message));
-      dispatch(setAttemptingLogin(true));
-    }
+      onFailure: (err) => {
+        setError(err.message || "Login failed");
+        setAttemptingLogin(false);
+      },
+    });
   };
 
   const handleSignupClick = () => {
-    navigate("/signup");
+    navigate("/auth/signup");
   };
 
   const handleForgotClick = () => {
-    navigate("/forgot");
-  };
-
-  const handleEmailChange = (e) => {
-    dispatch(setLoginEmail(e.target.value));
-  };
-
-  const handlePassChange = (e) => {
-    dispatch(setLoginPass(e.target.value));
+    navigate("/auth/forgot");
   };
 
   useEffect(() => {
-    setEmpty(loginEmail === "" || loginPass === "");
-    dispatch(setLoginError(false));
-  }, [loginEmail, loginPass]);
-
-  useEffect(() => {
-    if (loggedIn) {
-      navigate("/chatbot");
-    }
-  }, [loggedIn]);
+    setError(""); // Clear error when email or password changes
+  }, [email, password]);
 
   return (
     <div className="Signup-container">
@@ -66,23 +69,21 @@ export default function Login({ ws }) {
         <input
           type="text"
           placeholder="Email address"
-          onChange={handleEmailChange}
-          className={loginError ? "error" : ""}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className={error ? "error" : ""}
         />
         <input
           type="password"
           placeholder="Password"
-          onChange={handlePassChange}
-          className={loginError ? "error" : ""}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className={error ? "error" : ""}
         />
-        {loginError && (
-          <div className="error-message">
-            Invalid email address or password.
-          </div>
-        )}
+        {error && <div className="error-message">{error}</div>}
         <button
           className={
-            loginError || empty || attemptingLogin
+            error || !email || !password || attemptingLogin
               ? "Errors-button"
               : "Continue-button"
           }

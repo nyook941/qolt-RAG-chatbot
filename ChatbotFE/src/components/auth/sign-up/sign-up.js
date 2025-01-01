@@ -1,186 +1,62 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./sign-up.css";
-import {
-  fetchUsers,
-  setAttemptingLogin,
-  setSignUpConfirmPass,
-  setSignUpEmail,
-  setSignUpPass,
-} from "../../../redux/slices/auth-slice";
-import { useDispatch, useSelector } from "react-redux";
+import { CognitoUserPool } from "amazon-cognito-identity-js";
 
-export default function SignUp({ ws }) {
+const poolData = {
+  UserPoolId: process.env.REACT_APP_USER_POOL_ID,
+  ClientId: process.env.REACT_APP_CLIENT_ID,
+};
+
+const userPool = new CognitoUserPool(poolData);
+
+export default function SignUp() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const [userNameTaken, setUserNameTaken] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
-  const [confirmPasswordError, setConfirmPasswordError] = useState(false);
-  const [errors, setErrors] = useState(true);
-
-  const {
-    signUpPass,
-    signUpConfirmPass,
-    signUpEmail,
-    loggedIn,
-    attemptingLogin,
-    users,
-  } = useSelector((state) => state.auth);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleCreateClick = () => {
-    if (!errors) {
-      const message = {
-        action: "createUser",
-        message: {
-          username: signUpEmail,
-          password: signUpPass,
-          role: "User",
-        },
-      };
-      dispatch(setAttemptingLogin(true));
-      ws.send(JSON.stringify(message));
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
     }
+    userPool.signUp(email, password, [], null, (err, result) => {
+      if (err) {
+        setError(err.message || "Sign-up failed");
+        return;
+      }
+      navigate("/auth/confirm", { state: { email } });
+    });
   };
-
-  const handleLoginClick = () => {
-    navigate("/login");
-  };
-
-  const handleEmailChange = (e) => {
-    dispatch(setSignUpEmail(e.target.value));
-    if (emailError || userNameTaken) {
-      handleEmailBlur();
-    }
-  };
-
-  const handlePasswordChange = (e) => {
-    dispatch(setSignUpPass(e.target.value));
-    if (passwordError) {
-      handlePasswordBlur();
-    }
-  };
-
-  const handleConfirmChange = (e) => {
-    dispatch(setSignUpConfirmPass(e.target.value));
-    if (confirmPasswordError) {
-      handleConfirmBlur(e);
-    }
-  };
-
-  const handleEmailBlur = () => {
-    if (signUpEmail != "") {
-      const emailRegex = /\S+@\S+\.\S+/;
-      const validEmail = emailRegex.test(signUpEmail);
-      const userTaken = users.includes(signUpEmail);
-      setUserNameTaken(userTaken);
-      setEmailError(!validEmail);
-    }
-  };
-
-  const handlePasswordBlur = () => {
-    if (signUpPass != "") {
-      const validPassword = signUpPass.length >= 8;
-      setPasswordError(!validPassword);
-    }
-  };
-
-  const handleConfirmBlur = (e) => {
-    if (signUpConfirmPass != "") {
-      const validPassword = signUpPass === e.target.value;
-      setConfirmPasswordError(!validPassword);
-    }
-  };
-
-  useEffect(() => {
-    setErrors(
-      emailError ||
-        passwordError ||
-        confirmPasswordError ||
-        signUpConfirmPass === "" ||
-        signUpPass === "" ||
-        signUpEmail === "" ||
-        userNameTaken
-    );
-  }, [
-    emailError,
-    passwordError,
-    confirmPasswordError,
-    signUpConfirmPass,
-    signUpEmail,
-    signUpPass,
-  ]);
-
-  useEffect(() => {
-    if (loggedIn) {
-      navigate("/chatbot");
-    }
-  }, [loggedIn]);
-
-  useEffect(() => {
-    dispatch(fetchUsers());
-  }, []);
 
   return (
     <div className="Signup-container">
-      <img src="/utd-logo.png" className="Utd-logo" />
       <header className="Title-container">
         Create your account
         <input
           type="text"
           placeholder="Email address"
-          onChange={handleEmailChange}
-          onBlur={handleEmailBlur}
-          className={emailError || userNameTaken ? "error" : ""}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
-        {emailError && (
-          <div className="error-message">Invalid email address.</div>
-        )}
-        {userNameTaken && (
-          <div className="error-message">
-            The email address already has an account.
-          </div>
-        )}
         <input
           type="password"
           placeholder="Password"
-          onChange={handlePasswordChange}
-          onBlur={handlePasswordBlur}
-          className={passwordError ? "error" : ""}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
-        {passwordError && (
-          <div className="error-message">
-            Password must be at least 8 characters.
-          </div>
-        )}
         <input
           type="password"
           placeholder="Confirm password"
-          onChange={handleConfirmChange}
-          onBlur={(e) => handleConfirmBlur(e)}
-          className={confirmPasswordError ? "error" : ""}
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
         />
-        {confirmPasswordError && (
-          <div className="error-message">Passwords do not match.</div>
-        )}
-        <button
-          className={
-            errors || attemptingLogin ? "Errors-button" : "Continue-button"
-          }
-          onClick={handleCreateClick}
-        >
-          <span>Continue</span>
-          {attemptingLogin && (
-            <img src={"/loading-alt.gif"} className="Loading-login" />
-          )}
+        {error && <div className="error-message">{error}</div>}
+        <button onClick={handleCreateClick} className="Continue-button">
+          Sign Up
         </button>
-        <div className="subheader">
-          Already have an account?{" "}
-          <button className="Nav-back-login" onClick={handleLoginClick}>
-            Log in
-          </button>
-        </div>
       </header>
     </div>
   );
